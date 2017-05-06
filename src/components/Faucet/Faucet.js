@@ -5,7 +5,7 @@ import { Card, CardTitle, CardText, CardActions } from 'material-ui/Card'
 
 import CircularProgress from 'material-ui/CircularProgress'
 
-export default class Faucet extends React.Component {
+export default class MeshPoint extends React.Component {
 
   constructor(props) {
     super(props)
@@ -61,7 +61,7 @@ export default class Faucet extends React.Component {
       <Card>
         {selected &&
           <CardTitle
-            title={selected.name + ' Faucet'} style={{ 'textTransform': 'capitalize' }}
+            title={selected.name + ' MeshPoint'} style={{ 'textTransform': 'capitalize' }}
             subtitle={'Balance: ' + selected.balance + ' Ether'}
           />
         }

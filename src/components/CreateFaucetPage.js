@@ -9,7 +9,7 @@ export default class CreateFaucetPage extends React.Component {
       <Page renderParticles={false}>
         <Card>
           <CardTitle
-            title='Create Faucet'
+            title='Create MeshPoint'
             subtitle='One per account address.'
             />
           <CardText>

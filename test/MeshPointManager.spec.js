@@ -1,7 +1,7 @@
 var Web3 = require('web3')
 const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'))
-var Faucet = artifacts.require('./Faucet.sol')
-var FaucetManager = artifacts.require('./FaucetManager.sol')
+var MeshPoint = artifacts.require('./MeshPoint.sol')
+var MeshPointManager = artifacts.require('./MeshPointManager.sol')
 var _ = require('lodash')
 
 
@@ -13,7 +13,7 @@ const {
   readEvents
 } = require('../ti-framework/event-store')
 
-contract('FaucetManager', function (accounts) {
+contract('MeshPointManager', function (accounts) {
 
   var faucetManagerInstance = null
   var faucetAddress = null
@@ -25,19 +25,19 @@ contract('FaucetManager', function (accounts) {
   var eventIds = [];
 
   it('Factory Instance Exists', () => {
-    return FaucetManager.deployed().then((_instance) => {
+    return MeshPointManager.deployed().then((_instance) => {
       faucetManagerInstance = _instance
     })
   })
 
-  it('Verify Faucet Factory Addresses', (done) => {
+  it('Verify MeshPoint Factory Addresses', (done) => {
     faucetManagerInstance.getFaucetByCreator.call({ from: faucetCreator }).then((_faucetAddress) => {
       faucetAddress = _faucetAddress
       done()
     })
   })
 
-  it('Create Faucet address', (done) => {
+  it('Create MeshPoint address', (done) => {
     faucetManagerInstance.createFaucet.call(faucetName, {
       from: faucetCreator,
       value: faucetSeedEther
@@ -47,7 +47,7 @@ contract('FaucetManager', function (accounts) {
     })
   })
 
-  it('Create Faucet', (done) => {
+  it('Create MeshPoint', (done) => {
     var events = faucetManagerInstance.FaucetCreated()
 
     events.watch((error, result) => {
@@ -65,14 +65,14 @@ contract('FaucetManager', function (accounts) {
     }).then()
   })
 
-  it('Verify Faucet address contained in FaucetManager addresses', () => {
+  it('Verify MeshPoint address contained in MeshPointManager addresses', () => {
     faucetManagerInstance.getFaucets().then((_faucetAddresses) => {
       assert(_.includes(_faucetAddresses, faucetAddress), '_faucetAddresses does not contain faucetAddress')
     })
   })
 
-  it('Verify Faucet owner', (done) => {
-    Faucet.at(faucetAddress).then((_faucet) => {
+  it('Verify MeshPoint owner', (done) => {
+    MeshPoint.at(faucetAddress).then((_faucet) => {
       return _faucet.owner.call().then((_owner) => {
         assert.equal(faucetManagerInstance.address, _owner, 'faucetManagerInstance is not faucet owner')
         done()
@@ -94,13 +94,13 @@ contract('FaucetManager', function (accounts) {
     })
   })
 
-  it('Verify Faucet Balance', (done) => {
+  it('Verify MeshPoint Balance', (done) => {
     assert.equal(faucetSeedEther, web3.eth.getBalance(faucetAddress).toNumber(), '1000000000000000000 wasn\'t the faucet balance')
     done()
   })
 
   it('Verify Get Send Amount', (done) => {
-    Faucet.at(faucetAddress).then((_faucet) => {
+    MeshPoint.at(faucetAddress).then((_faucet) => {
       return _faucet.getSendAmount.call({ from: faucetCustomer })
     }).then((_sendAmount) => {
       assert.equal(1000000000000000000, _sendAmount.toNumber(), 'sendAmount wasn\'t 1000000000000000000')
@@ -126,8 +126,8 @@ contract('FaucetManager', function (accounts) {
       })
   })
 
-  it('Verify Customer address contained in Faucet requestorAddresses', () => {
-    Faucet.at(faucetAddress).then((_faucet) => {
+  it('Verify Customer address contained in MeshPoint requestorAddresses', () => {
+    MeshPoint.at(faucetAddress).then((_faucet) => {
       return _faucet.getRequestorAddresses.call()
     }).then((_requestorAddresses) => {
       assert(_.includes(_requestorAddresses, faucetCustomer), '_requestorAddresses does not contain faucetCustomer')
@@ -167,7 +167,7 @@ contract('FaucetManager', function (accounts) {
   })
 
   it('Verify Customer address is authorized', (done) => {
-    Faucet.at(faucetAddress).then((_faucet) => {
+    MeshPoint.at(faucetAddress).then((_faucet) => {
       return _faucet.isAddressAuthorized.call(faucetCustomer)
     }).then((_isAuthorized) => {
       assert(_isAuthorized, 'faucetCustomer is not authorized')
@@ -176,7 +176,7 @@ contract('FaucetManager', function (accounts) {
   })
 
   it('Verify Customer Can Get Wei', (done) => {
-    Faucet.at(faucetAddress).then((_faucet) => {
+    MeshPoint.at(faucetAddress).then((_faucet) => {
       var events = _faucet.EtherRequested()
 
       events.watch((error, result) => {
@@ -196,7 +196,7 @@ contract('FaucetManager', function (accounts) {
   })
 
   it('Verify Customer Can Send Wei', (done) => {
-    Faucet.at(faucetAddress).then((_faucet) => {
+    MeshPoint.at(faucetAddress).then((_faucet) => {
       var events = _faucet.EtherSent()
 
       events.watch((error, result) => {
@@ -230,7 +230,7 @@ contract('FaucetManager', function (accounts) {
   })
 
   it('Verify Customer address is not authorized', (done) => {
-    Faucet.at(faucetAddress).then((_faucet) => {
+    MeshPoint.at(faucetAddress).then((_faucet) => {
       return _faucet.isAddressAuthorized.call(faucetCustomer)
     }).then((_isAuthorized) => {
       assert(!_isAuthorized, 'faucetCustomer is authorized')
@@ -241,7 +241,7 @@ contract('FaucetManager', function (accounts) {
   describe('EventStore', () => {
 
     it('is currently version 1', () => {
-      return Faucet.at(faucetAddress)
+      return MeshPoint.at(faucetAddress)
         .then((_esInstance) => {
           return _esInstance.getVersion();
         })
@@ -252,7 +252,7 @@ contract('FaucetManager', function (accounts) {
     })
 
     it('readEvent', () => {
-      return Faucet.at(faucetAddress)
+      return MeshPoint.at(faucetAddress)
         .then((_faucet) => {
           return readEvent(_faucet, 0)
         })
@@ -266,7 +266,7 @@ contract('FaucetManager', function (accounts) {
     })
 
     it('readEvents', () => {
-      return Faucet.at(faucetAddress)
+      return MeshPoint.at(faucetAddress)
         .then((_faucet) => {
           return readEvents(_faucet)
         })
@@ -282,8 +282,8 @@ contract('FaucetManager', function (accounts) {
   })
 
   // Timing issue here, need to add some buffer before destroying things, or tests fail...
-  // it('Destroy Faucet', () => {
-  //   Faucet.at(faucetAddress).then((_faucet) => {
+  // it('Destroy MeshPoint', () => {
+  //   MeshPoint.at(faucetAddress).then((_faucet) => {
   //     faucetManagerInstance.killFaucet(_faucet.address, faucetName, faucetCreator, { from: faucetCreator }).then(() => {
   //       assert.equal(faucetManagerInstance.creatorFaucetMapping, null, 'creatorFaucetMapping was not undefined')
   //       assert.equal(faucetManagerInstance.nameFaucetMapping, null, 'nameFaucetMapping was not undefined')

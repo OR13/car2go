@@ -3,8 +3,8 @@ var Killable = artifacts.require('./zeppelin/lifecycle/Killable.sol')
 var Authentication = artifacts.require('./Authentication.sol')
 var IndexedEnumerableSetLib = artifacts.require('./IndexedEnumerableSetLib.sol')
 
-var FaucetManager = artifacts.require('./FaucetManager.sol')
-var Faucet = artifacts.require('./Faucet.sol')
+var MeshPointManager = artifacts.require('./MeshPointManager.sol')
+var MeshPoint = artifacts.require('./MeshPoint.sol')
 
 var EventStore = artifacts.require('./EventStore.sol')
 
@@ -16,12 +16,12 @@ module.exports = function (deployer) {
   deployer.deploy(Authentication)
 
   deployer.deploy(IndexedEnumerableSetLib)
-  deployer.link(IndexedEnumerableSetLib, FaucetManager)
-  deployer.link(IndexedEnumerableSetLib, Faucet)
+  deployer.link(IndexedEnumerableSetLib, MeshPointManager)
+  deployer.link(IndexedEnumerableSetLib, MeshPoint)
 
   deployer.deploy(EventStore)
 
-  deployer.deploy(FaucetManager, {value: 5000000000000000000})
-  deployer.link(FaucetManager, Faucet)
-  deployer.deploy(Faucet)
+  deployer.deploy(MeshPointManager, {value: 5000000000000000000})
+  deployer.link(MeshPointManager, MeshPoint)
+  deployer.deploy(MeshPoint)
 }

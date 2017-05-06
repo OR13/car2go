@@ -135,7 +135,7 @@ export default class Navbar extends Component {
       <AppBar
         title={
           <Link to={accountExists ? `${LIST_PATH}` : '/'} className={classes.brand}>
-            ETH Faucet
+            ETH MeshPoint
           </Link>
         }
         showMenuIconButton={false}

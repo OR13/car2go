@@ -14,7 +14,7 @@ import TodoRoute from './Todo'
 
 import AdminRoute from './Admin'
 import CreateFaucetRoute from './CreateFaucet'
-import FaucetRoute from './Faucet'
+import FaucetRoute from './MeshPoint'
 import AuthorizeFaucetRoute from './AuthorizeFaucet'
 
 

@@ -1,5 +1,5 @@
 {
-  "contract_name": "Faucet",
+  "contract_name": "MeshPoint",
   "abi": [
     {
       "constant": true,

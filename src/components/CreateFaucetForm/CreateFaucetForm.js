@@ -37,7 +37,7 @@ export default class CreateFaucetForm extends React.Component {
       return (
         <Card>
           <CardTitle
-            title='Create Faucet'
+            title='Create MeshPoint'
             subtitle='One per account address.'
             />
           <CardText>

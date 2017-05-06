@@ -5,13 +5,13 @@ const web3 = new Web3(provider)
 
 const contract = require('truffle-contract')
 
-import Faucet from '../../../build/contracts/Faucet.json'
-import FaucetManager from '../../../build/contracts/FaucetManager.json'
+import MeshPoint from '../../../build/contracts/MeshPoint.json'
+import MeshPointManager from '../../../build/contracts/MeshPointManager.json'
 
-const faucetContract = contract(Faucet)
+const faucetContract = contract(MeshPoint)
 faucetContract.setProvider(provider)
 
-const faucetManagerContract = contract(FaucetManager)
+const faucetManagerContract = contract(MeshPointManager)
 faucetManagerContract.setProvider(provider)
 
 import { readEvent, readEvents } from '../../../ti-framework/event-store';

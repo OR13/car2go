@@ -2,7 +2,7 @@ pragma solidity ^0.4.8;
 import "./IndexedEnumerableSetLib.sol";
 import './Transmute/EventStore.sol';
 
-contract Faucet is EventStore  {
+contract MeshPoint is EventStore  {
     using IndexedEnumerableSetLib for IndexedEnumerableSetLib.IndexedEnumerableSet;
 
     mapping (address => uint) lastSent;
@@ -23,7 +23,7 @@ contract Faucet is EventStore  {
     function() payable {}
 
     // Constructor
-    function Faucet(string _name, address _creator) {
+    function MeshPoint(string _name, address _creator) {
         timeCreated = now;
         name = _name;
         creator = _creator;

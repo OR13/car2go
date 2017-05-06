@@ -199,7 +199,7 @@ class FaucetAuthorizeTable extends React.Component {
         return (
           <Card>
             <CardTitle
-              title={this.props.faucet.selected.name + ' Faucet'} style={{ 'textTransform': 'capitalize' }}
+              title={this.props.faucet.selected.name + ' MeshPoint'} style={{ 'textTransform': 'capitalize' }}
               subtitle={'Balance: ' + this.props.faucet.selected.balance + ' Ether'}
             />
             <CardText>

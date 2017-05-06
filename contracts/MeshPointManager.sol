@@ -1,10 +1,10 @@
 pragma solidity ^0.4.8;
-import "./Faucet.sol";
+import "./MeshPoint.sol";
 import "./IndexedEnumerableSetLib.sol";
 import './zeppelin/lifecycle/Killable.sol';
 import './Transmute/EventStore.sol';
 
-contract FaucetManager is EventStore {
+contract MeshPointManager is EventStore {
   using IndexedEnumerableSetLib for IndexedEnumerableSetLib.IndexedEnumerableSet;
 
   mapping (address => address) creatorFaucetMapping;
@@ -22,7 +22,7 @@ contract FaucetManager is EventStore {
   function() payable {}
 
   // Constructor
-  function FaucetManager() payable {
+  function MeshPointManager() payable {
   }
 
   // Modifiers
@@ -58,7 +58,7 @@ contract FaucetManager is EventStore {
     // Update Local State
 
     // Interact With Other Contracts
-		Faucet _newFaucet = new Faucet(_name, msg.sender);
+		MeshPoint _newFaucet = new MeshPoint(_name, msg.sender);
     if (!_newFaucet.send(msg.value)) {
       throw;
     }
@@ -74,19 +74,19 @@ contract FaucetManager is EventStore {
 	}
 
   function requestAccess(address _faucetAddress, address _requestorAddress ) checkExistence(_faucetAddress) {
-    Faucet _faucet = Faucet(_faucetAddress);
+    MeshPoint _faucet = MeshPoint(_faucetAddress);
     _faucet.addRequestorAddress(_requestorAddress);
     AccessRequested(_requestorAddress);
   }
 
   function authorizeAccess(address _faucetAddress, address _requestorAddress ) checkExistence(_faucetAddress) {
-    Faucet _faucet = Faucet(_faucetAddress);
+    MeshPoint _faucet = MeshPoint(_faucetAddress);
     _faucet.authorizeRequestorAddress(_requestorAddress);
     AuthorizationGranted(_requestorAddress);
   }
 
   function revokeAccess(address _faucetAddress, address _requestorAddress) checkExistence(_faucetAddress) {
-    Faucet _faucet = Faucet(_faucetAddress);
+    MeshPoint _faucet = MeshPoint(_faucetAddress);
     _faucet.revokeRequestorAddress(_requestorAddress);
     AuthorizationRevoked(_requestorAddress);
   }
@@ -106,7 +106,7 @@ contract FaucetManager is EventStore {
     faucetAddresses.remove(_address);
 
     // Interact With Other Contracts
-    Faucet _faucet = Faucet(_address);
+    MeshPoint _faucet = MeshPoint(_address);
     _faucet.kill();
 
     // Emit Events
