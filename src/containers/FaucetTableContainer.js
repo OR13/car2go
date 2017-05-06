@@ -13,7 +13,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     selectRow: (rowData) => {
       event.preventDefault()
-      browserHistory.push('/faucets/' + rowData.name)
+      // console.info('selected: ', rowData);
+      browserHistory.push("/faucets/" + rowData.name)
     }
   }
 }

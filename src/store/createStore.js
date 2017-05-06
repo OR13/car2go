@@ -13,7 +13,7 @@ const logger = createLogger({
   // collapsed: (getState, action, logEntry) => {
   //   console.log('what is log?', logEntry)
   // }
-})
+});
 
 export default (initialState = {}, history) => {
   // ======================================================
@@ -57,6 +57,8 @@ export default (initialState = {}, history) => {
     )
   )
   store.asyncReducers = {}
+
+
 
   if (module.hot) {
     module.hot.accept('./reducers', () => {

@@ -1,9 +1,10 @@
 pragma solidity ^0.4.8;
 import "./Faucet.sol";
 import "./IndexedEnumerableSetLib.sol";
+import './zeppelin/lifecycle/Killable.sol';
 import './Transmute/EventStore.sol';
 
-contract MeshPointManager is EventStore {
+contract FaucetManager is EventStore {
   using IndexedEnumerableSetLib for IndexedEnumerableSetLib.IndexedEnumerableSet;
 
   mapping (address => address) creatorFaucetMapping;
@@ -21,7 +22,8 @@ contract MeshPointManager is EventStore {
   function() payable {}
 
   // Constructor
-  function MeshPointManager() payable {}
+  function FaucetManager() payable {
+  }
 
   // Modifiers
   modifier checkExistence(address _faucetAddress) {
@@ -31,28 +33,20 @@ contract MeshPointManager is EventStore {
   }
 
   // Helper Functions
-  function getFaucetByCreator() constant
-    returns (address)
-  {
+  function getFaucetByCreator() constant returns (address)  {
     return creatorFaucetMapping[msg.sender];
   }
 
-  function getFaucetByName(string _name) constant
-    returns (address)
-  {
+  function getFaucetByName(string _name) constant returns (address)  {
     return nameFaucetMapping[_name];
   }
 
-  function getFaucets() constant
-    returns (address[])
-  {
+  function getFaucets() constant returns (address[])  {
     return faucetAddresses.values;
   }
 
   // Interface
-	function createFaucet(string _name) payable
-    returns (address)
-  {
+	function createFaucet(string _name) payable returns (address) {
     // Validate Local State
     if (nameFaucetMapping[_name] != 0) {
       throw;
@@ -79,25 +73,19 @@ contract MeshPointManager is EventStore {
     return address(_newFaucet);
 	}
 
-  function requestAccess(address _faucetAddress, address _requestorAddress )
-    checkExistence(_faucetAddress)
-  {
+  function requestAccess(address _faucetAddress, address _requestorAddress ) checkExistence(_faucetAddress) {
     Faucet _faucet = Faucet(_faucetAddress);
     _faucet.addRequestorAddress(_requestorAddress);
     AccessRequested(_requestorAddress);
   }
 
-  function authorizeAccess(address _faucetAddress, address _requestorAddress )
-    checkExistence(_faucetAddress)
-  {
+  function authorizeAccess(address _faucetAddress, address _requestorAddress ) checkExistence(_faucetAddress) {
     Faucet _faucet = Faucet(_faucetAddress);
     _faucet.authorizeRequestorAddress(_requestorAddress);
     AuthorizationGranted(_requestorAddress);
   }
 
-  function revokeAccess(address _faucetAddress, address _requestorAddress)
-    checkExistence(_faucetAddress)
-  {
+  function revokeAccess(address _faucetAddress, address _requestorAddress) checkExistence(_faucetAddress) {
     Faucet _faucet = Faucet(_faucetAddress);
     _faucet.revokeRequestorAddress(_requestorAddress);
     AuthorizationRevoked(_requestorAddress);

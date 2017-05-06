@@ -1,18 +1,12 @@
 import React from 'react'
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn
-} from 'material-ui/Table'
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn }
+  from 'material-ui/Table'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 
 class FaucetTable extends React.Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -33,7 +27,7 @@ class FaucetTable extends React.Component {
   }
 
   onRowSelection = (index) => {
-    var selectedObject = this.props.faucetObjects[index]
+    var selectedObject = this.props.faucetObjects[index];
     if (selectedObject) {
       this.setState({
         dialogOpen: true,
@@ -42,7 +36,7 @@ class FaucetTable extends React.Component {
     }
   }
 
-  renderTableHeaderFooter () {
+  renderTableHeaderFooter() {
     return (
       <TableRow>
         <TableHeaderColumn tooltip='Balane'>Balance</TableHeaderColumn>
@@ -62,21 +56,21 @@ class FaucetTable extends React.Component {
   }
 
   handleConfirm = () => {
-    this.props.selectRow(this.state.selectedObject)
+    this.props.selectRow(this.state.selectedObject);
   }
-  render () {
+  render() {
     const actions = [
       <FlatButton
         label='Cancel'
         primary
         onTouchTap={this.handleCloseDialog}
-        />,
+      />,
       <FlatButton
         label='Confirm'
         primary
         keyboardFocused
         onTouchTap={this.handleConfirm}
-        />
+      />
     ]
     return (
       <div>
@@ -88,12 +82,12 @@ class FaucetTable extends React.Component {
           selectable={this.state.selectable}
           multiSelectable={this.state.multiSelectable}
           bodyStyle={{ overflow: 'visible' }}
-          >
+        >
           <TableHeader
             displaySelectAll={this.state.showCheckboxes}
             adjustForCheckbox={this.state.showCheckboxes}
             enableSelectAll={this.state.enableSelectAll}
-            >
+          >
             {this.renderTableHeaderFooter()}
           </TableHeader>
           <TableBody
@@ -101,7 +95,7 @@ class FaucetTable extends React.Component {
             deselectOnClickaway={this.state.deselectOnClickaway}
             showRowHover={this.state.showRowHover}
             stripedRows={this.state.stripedRows}
-            >
+          >
             {this.props.faucetObjects.map((faucet, index) => (
               <TableRow key={index}>
                 <TableRowColumn>{faucet.balance}</TableRowColumn>
@@ -119,7 +113,7 @@ class FaucetTable extends React.Component {
           modal={false}
           open={this.state.dialogOpen}
           onRequestClose={this.handleCloseDialog}
-          >
+        >
           Are you sure you want to open <strong>{this.state.selectedObject !== null && this.state.selectedObject.name}</strong> faucet in a new tab?
         </Dialog>
       </div>

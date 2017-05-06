@@ -26,8 +26,10 @@ export const sendEther = (transactionData) => dispatch => {
 }
 
 export const updateDebugSettings = (formModel) => dispatch => {
+
   dispatch({
     type: DEBUG_SETTINGS_UPDATED,
     payload: formModel
   })
+
 }

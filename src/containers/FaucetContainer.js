@@ -3,6 +3,7 @@ import Faucet from 'components/Faucet/Faucet'
 
 import { browserHistory } from 'react-router'
 
+
 import { sendWei, getFaucetByName, requestFaucetAccess } from 'store/ethereum/faucet'
 
 const mapStateToProps = (state, ownProps) => {
@@ -15,18 +16,18 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onGetFaucetByName: (cleanName) => {
-      dispatch(getFaucetByName(cleanName))
+      dispatch(getFaucetByName(cleanName));
     },
     onSendWeiFormSubmit: (_faucetAddress, _recipientAddress, _fromAddress) => {
-      dispatch(sendWei(_faucetAddress, _recipientAddress, _fromAddress))
+      dispatch(sendWei(_faucetAddress, _recipientAddress, _fromAddress));
     },
     onRequestFaucetAccess: (_faucetAddress, _requestorAddress, _fromAddress) => {
-      console.log('_faucetAddress, _requestorAddress, _fromAddress')
-      console.log(_faucetAddress, _requestorAddress, _fromAddress)
-      dispatch(requestFaucetAccess(_faucetAddress, _requestorAddress, _fromAddress))
+      console.log('_faucetAddress, _requestorAddress, _fromAddress');
+      console.log(_faucetAddress, _requestorAddress, _fromAddress);
+      dispatch(requestFaucetAccess(_faucetAddress, _requestorAddress, _fromAddress));
     },
     onNavigateToPath: (path) => {
-      browserHistory.push(path)
+      browserHistory.push(path);
     }
   }
 }

@@ -1,5 +1,6 @@
 export const authorizedAddressReadModel = (readModel, events) => {
-  console.log('events: ', events)
+
+  console.log('events: ', events);
 
   events.forEach((event) => {
     if (event.Type === 'FAUCET_ADDRESS_ACCESS_REQUESTED') {

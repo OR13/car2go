@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { PropTypes } from 'prop-types'
+import { PropTypes }  from 'prop-types';
 import Paper from 'material-ui/Paper'
 import { connect } from 'react-redux'
+import { reduxForm } from 'redux-form'
 import { firebaseConnect, pathToJS, isLoaded } from 'react-redux-firebase'
 import { submit } from 'redux-form'
 import { reduxFirebase as rfConfig } from 'config'
@@ -17,7 +18,7 @@ import classes from './AccountContainer.scss'
   // Map redux state to props
   ({ firebase }) => ({
     auth: pathToJS(firebase, 'auth'),
-    account: pathToJS(firebase, 'profile')
+    account: pathToJS(firebase, 'profile'),
   }),
   {
     // action for submitting redux-form
@@ -29,7 +30,8 @@ export default class Account extends Component {
     account: PropTypes.object,
     firebase: PropTypes.shape({
       update: PropTypes.func.isRequired,
-      logout: PropTypes.func.isRequired
+      logout: PropTypes.func.isRequired,
+      uploadAvatar: PropTypes.func
     })
   }
 
@@ -47,11 +49,11 @@ export default class Account extends Component {
 
   updateAccount = (newData) => {
     return this.props.firebase
-    .update(`${rfConfig.userProfile}/${this.props.auth.uid}`, newData)
-    .catch((err) => {
-      console.error('Error updating account', err)
-      // TODO: Display error to user
-    })
+      .update(`${rfConfig.userProfile}/${this.props.auth.uid}`, newData)
+      .catch((err) => {
+        console.error('Error updating account', err)
+        // TODO: Display error to user
+      })
   }
 
   render () {
@@ -70,14 +72,14 @@ export default class Account extends Component {
                 className={classes['avatar-current']}
                 src={account && account.avatarUrl}
                 onClick={this.toggleModal}
-                />
+              />
             </div>
             <div className={classes.meta}>
               <AccountForm
                 account={account}
                 submitForm={submitForm}
                 onSubmit={this.updateAccount}
-                />
+              />
             </div>
           </div>
         </Paper>

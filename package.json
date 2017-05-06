@@ -1,7 +1,7 @@
 {
   "name": "mesh_isp",
   "version": "0.0.1",
-  "description": "Mobile Mesh ISP powered by Transmute Framework",
+  "description": "Mobile Mesh ISP Market powered by Transmute Framework",
   "main": "index.js",
   "engines": {
     "node": ">=4.2.0",

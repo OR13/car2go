@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux'
 
 import HeroRow from 'components/HeroRow'
@@ -8,6 +9,8 @@ import CircularProgress from 'material-ui/CircularProgress'
 import CreateFaucetContainer from 'containers/CreateFaucetContainer'
 import FaucetTableContainer from 'containers/FaucetTableContainer'
 
+import { browserHistory } from 'react-router'
+
 @connect(
   ({ faucet }) => ({
     faucet: faucet
@@ -15,11 +18,21 @@ import FaucetTableContainer from 'containers/FaucetTableContainer'
 )
 export default class Home extends Component {
 
-  render () {
-    let { faucet } = this.props
+  componentWillReceiveProps(nextProps) {
+    // console.log(nextProps)
+    let { faucet } = nextProps;
+
+    // if (faucet.isOwner) {
+    //   browserHistory.push("/faucets/" + faucet.selected.name)
+    // }
+  }
+
+
+  render() {
+    let { faucet } = this.props;
 
     const isLoaded = () => {
-      return faucet.objects !== null
+      return faucet.objects !== null;
     }
 
     const HeroContent = () => {
@@ -37,6 +50,7 @@ export default class Home extends Component {
     }
 
     const DefaultView = () => {
+
       if (isLoaded()) {
         if (faucet.defaultFaucet !== undefined) {
           return (
@@ -56,7 +70,7 @@ export default class Home extends Component {
     }
     return (
       <div style={{ paddingBottom: '20px' }}>
-        <HeroRow renderParticles>
+        <HeroRow renderParticles={true}>
           <HeroContent />
         </HeroRow>
         <DefaultView />
