@@ -2,12 +2,12 @@
 // .gitignore skips this at the project level, but it is added for example here
 
 export const firebase = {
-  apiKey: "AIzaSyDIXrTv0TD9zdaCy5n_QXm6_VMaS-1B3sQ",
-  authDomain: "transmute-industries.firebaseapp.com",
-  databaseURL: "https://transmute-industries.firebaseio.com",
-  projectId: "transmute-industries",
-  storageBucket: "transmute-industries.appspot.com",
-  messagingSenderId: "1068223304219"
+  apiKey: "AIzaSyAqJTUsLz1ZDLEWEcnBSv0ou7-NGZ4-7JA",
+  authDomain: "car2go-1b097.firebaseapp.com",
+  databaseURL: "https://car2go-1b097.firebaseio.com",
+  projectId: "car2go-1b097",
+  storageBucket: "car2go-1b097.appspot.com",
+  messagingSenderId: "1008856716"
 }
 
 // Config for react-redux-firebase

@@ -6,12 +6,12 @@ readEventsStartingAt
 
 
 const firebaseConfig = {
-    apiKey: 'AIzaSyBev_5tS4kmdcgi6LcUhGP3HBP1s5Rl0H8',
-    authDomain: 'eth-faucet.firebaseapp.com',
-    databaseURL: 'https://eth-faucet.firebaseio.com',
-    projectId: 'eth-faucet',
-    storageBucket: 'eth-faucet.appspot.com',
-    messagingSenderId: '686546727130'
+    apiKey: "AIzaSyAqJTUsLz1ZDLEWEcnBSv0ou7-NGZ4-7JA",
+    authDomain: "car2go-1b097.firebaseapp.com",
+    databaseURL: "https://car2go-1b097.firebaseio.com",
+    projectId: "car2go-1b097",
+    storageBucket: "car2go-1b097.appspot.com",
+    messagingSenderId: "1008856716"
 };
 
 firebase.initializeApp(firebaseConfig);
