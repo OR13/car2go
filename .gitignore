@@ -1,0 +1,12 @@
+*.log
+**/*.log
+.DS_Store
+**/.DS_Store
+
+node_modules
+../node_modules
+coverage
+
+dist
+src/creds.js
+sigmate-v3-austin-eth-faucet.json
