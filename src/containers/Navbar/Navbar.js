@@ -102,7 +102,7 @@ export default class Navbar extends Component {
           />
         </Link>
         <FlatButton
-          href='https://github.com/OR13/care2go'
+          href='https://github.com/OR13/car2go'
           label='Source'
           style={buttonStyle}
         />
