@@ -39,7 +39,7 @@ export default class Home extends Component {
       if (isLoaded()) {
         return (
           <h1 style={{ textAlign: 'center' }} >
-            Ethereum TestNet Faucets
+            Mobile Mesh ISP Market
           </h1>
         )
       } else {

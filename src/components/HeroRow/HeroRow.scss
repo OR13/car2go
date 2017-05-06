@@ -1,8 +1,9 @@
 @import 'base';
 .container {
-    background-image: url("/car2go.jpg");
-    background-size: cover;
+    background-image: url("/car2go.png");
+    background-size: conver;
     background-color: rgba( 0, 0, 0, 0.80);
+    background-position: center;
     background-blend-mode: darken;  
 }
 .center{
