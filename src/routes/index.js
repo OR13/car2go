@@ -13,9 +13,9 @@ import RecoverRoute from './Recover'
 import TodoRoute from './Todo'
 
 import AdminRoute from './Admin'
-import CreateFaucetRoute from './CreateFaucet'
-import FaucetRoute from './MeshPoint'
-import AuthorizeFaucetRoute from './AuthorizeFaucet'
+import CreateMeshPointRoute from './CreateMeshPoint'
+import MeshPointRoute from './MeshPoint'
+import AuthorizeMeshPointRoute from './AuthorizeMeshPoint'
 
 
 
@@ -36,9 +36,9 @@ export const createRoutes = (store) => ({
     DebugRoute(store),
     TodoRoute(store),
     AdminRoute(store),
-    CreateFaucetRoute(store),
-    FaucetRoute(store),
-    AuthorizeFaucetRoute(store)
+    CreateMeshPointRoute(store),
+    MeshPointRoute(store),
+    AuthorizeMeshPointRoute(store)
   ]
 })
 

@@ -11,7 +11,7 @@ import CircularProgress from 'material-ui/CircularProgress'
 
 import { each } from 'lodash';
 
-class FaucetAuthorizeTable extends React.Component {
+class MeshPointAuthorizeTable extends React.Component {
 
   constructor(props) {
     super(props)
@@ -271,4 +271,4 @@ class FaucetAuthorizeTable extends React.Component {
   }
 }
 
-export default FaucetAuthorizeTable
+export default MeshPointAuthorizeTable

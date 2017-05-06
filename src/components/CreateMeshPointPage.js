@@ -1,9 +1,9 @@
 import React from 'react'
 import {Card, CardTitle, CardText} from 'material-ui/Card'
 import Page from 'layouts/Page'
-import CreateFaucetContainer from 'containers/CreateFaucetContainer'
+import CreateMeshPointContainer from 'containers/CreateMeshPointContainer'
 
-export default class CreateFaucetPage extends React.Component {
+export default class CreateMeshPointPage extends React.Component {
   render () {
     return (
       <Page renderParticles={false}>
@@ -13,7 +13,7 @@ export default class CreateFaucetPage extends React.Component {
             subtitle='One per account address.'
             />
           <CardText>
-            <CreateFaucetContainer />
+            <CreateMeshPointContainer />
           </CardText>
         </Card>
       </Page>

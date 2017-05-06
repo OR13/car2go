@@ -32,9 +32,9 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const FaucetContainer = connect(
+const MeshPointContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(MeshPoint)
 
-export default FaucetContainer
+export default MeshPointContainer

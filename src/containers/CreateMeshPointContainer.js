@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import CreateFaucetForm from 'components/CreateFaucetForm'
+import CreateMeshPointForm from 'components/CreateMeshPointForm'
 import { createFaucet } from 'store/ethereum/faucet'
 
 const mapStateToProps = (state, ownProps) => {
@@ -17,9 +17,9 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const CreateFaucetContainer = connect(
+const CreateMeshPointContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(CreateFaucetForm)
+)(CreateMeshPointForm)
 
-export default CreateFaucetContainer
+export default CreateMeshPointContainer

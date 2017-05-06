@@ -9,15 +9,15 @@ export default (store) => ({
     require.ensure([], (require) => {
       /*  Webpack - use require callback to define
           dependencies for bundling   */
-      const AuthorizeFaucetPage = require('./AuthorizeFaucetPage').default
+      const AuthorizeMeshPointPage = require('./AuthorizeMeshPointPage').default
       // const reducer = require('./modules/reducer').default
 
       // injectReducer(store, { key: 'tabs', reducer })
 
       /*  Return getComponent   */
-      cb(null, AuthorizeFaucetPage)
+      cb(null, AuthorizeMeshPointPage)
 
     /* Webpack named bundle   */
-    }, 'AuthorizeFaucetPage')
+    }, 'AuthorizeMeshPointPage')
   }
 })

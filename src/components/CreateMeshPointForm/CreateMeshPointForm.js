@@ -6,7 +6,7 @@ import { Card, CardTitle, CardText, CardActions } from 'material-ui/Card'
 import CircularProgress from 'material-ui/CircularProgress'
 
 
-export default class CreateFaucetForm extends React.Component {
+export default class CreateMeshPointForm extends React.Component {
 
   constructor (props) {
     super(props)

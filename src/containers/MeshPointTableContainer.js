@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import FaucetTable from 'components/FaucetTable'
+import MeshPointTable from 'components/MeshPointTable'
 
 import { browserHistory } from 'react-router'
 
@@ -19,9 +19,9 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const FaucetTableContainer = connect(
+const MeshPointTableContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(FaucetTable)
+)(MeshPointTable)
 
-export default FaucetTableContainer
+export default MeshPointTableContainer

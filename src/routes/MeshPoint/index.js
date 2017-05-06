@@ -1,7 +1,7 @@
-import { CREATE_FAUCET_PATH as path } from 'constants/paths'
+// import { injectReducer } from '../../../../store/reducers'
 
 export default (store) => ({
-  path,
+  path: '/faucets/:name',
   /*  Async getComponent is only invoked when route matches   */
   getComponent (nextState, cb) {
     /*  Webpack - use 'require.ensure' to create a split point
@@ -9,12 +9,15 @@ export default (store) => ({
     require.ensure([], (require) => {
       /*  Webpack - use require callback to define
           dependencies for bundling   */
-      const FaucetPage = require('components/CreateFaucetPage').default
+      const MeshPointPage = require('components/MeshPointPage').default
+      // const reducer = require('./modules/reducer').default
+
+      // injectReducer(store, { key: 'tabs', reducer })
 
       /*  Return getComponent   */
-      cb(null, FaucetPage)
+      cb(null, MeshPointPage)
 
     /* Webpack named bundle   */
-    }, 'FaucetPage')
+    }, 'MeshPointPage')
   }
 })

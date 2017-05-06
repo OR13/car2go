@@ -4,7 +4,7 @@ import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowCol
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 
-class FaucetTable extends React.Component {
+class MeshPointTable extends React.Component {
 
   constructor(props) {
     super(props)
@@ -121,4 +121,4 @@ class FaucetTable extends React.Component {
   }
 }
 
-export default FaucetTable
+export default MeshPointTable

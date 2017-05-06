@@ -89,7 +89,7 @@ export default class Navbar extends Component {
 
     const mainMenu = (
       <div className={classes.menu}>
-        {/*<Link to={SIGNUP_PATH}>
+        <Link to={SIGNUP_PATH}>
           <FlatButton
             label='Sign Up'
             style={buttonStyle}
@@ -100,9 +100,9 @@ export default class Navbar extends Component {
             label='Login'
             style={buttonStyle}
           />
-        </Link>*/}
+        </Link>
         <FlatButton
-          href='https://github.com/transmute-industries/eth-faucet'
+          href='https://github.com/OR13/care2go'
           label='Source'
           style={buttonStyle}
         />

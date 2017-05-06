@@ -6,8 +6,8 @@ import HeroRow from 'components/HeroRow'
 
 import CircularProgress from 'material-ui/CircularProgress'
 
-import CreateFaucetContainer from 'containers/CreateFaucetContainer'
-import FaucetTableContainer from 'containers/FaucetTableContainer'
+import CreateMeshPointContainer from 'containers/CreateMeshPointContainer'
+import MeshPointTableContainer from 'containers/MeshPointTableContainer'
 
 import { browserHistory } from 'react-router'
 
@@ -54,13 +54,13 @@ export default class Home extends Component {
       if (isLoaded()) {
         if (faucet.defaultFaucet !== undefined) {
           return (
-            <FaucetTableContainer />
+            <MeshPointTableContainer />
           )
         } else {
           return (
             <div>
-              <CreateFaucetContainer />
-              <FaucetTableContainer />
+              <CreateMeshPointContainer />
+              <MeshPointTableContainer />
             </div>
           )
         }

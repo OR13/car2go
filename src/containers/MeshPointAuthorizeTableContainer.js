@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import FaucetAuthorizeTable from 'components/FaucetAuthorizeTable'
+import MeshPointAuthorizeTable from 'components/MeshPointAuthorizeTable'
 
 import { authorizeFaucetAccess, revokeFaucetAccess } from 'store/ethereum/faucet'
 
@@ -30,9 +30,9 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-const FaucetAuthorizeTableContainer = connect(
+const MeshPointAuthorizeTableContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(FaucetAuthorizeTable)
+)(MeshPointAuthorizeTable)
 
-export default FaucetAuthorizeTableContainer
+export default MeshPointAuthorizeTableContainer
