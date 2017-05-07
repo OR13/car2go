@@ -48,7 +48,7 @@ export const meshPointReducer = (state = initialState, action) => {
 
   if (action.type === LOCATION_CHANGE) {
     let meshPointName = getFaucetNameFromPath(action.payload.pathname)
-    if (meshPointName && (state.selected === null || state.selected.name !== meshPointName)) {
+    if (meshPointName) {
       store.dispatch(getMeshPointByName(meshPointName))
     }
   }
@@ -70,25 +70,8 @@ export const meshPointReducer = (state = initialState, action) => {
 
   if (action.type === RECEIVE_MESHPOINT) {
     let meshPoint = action.payload
-    // let defaultMeshPoint
 
-    // if (meshPoint && meshPoint.creator === state.defaultAddress) {
-    //   defaultMeshPoint = meshPoint
-    // }
-
-    // store.dispatch(getEventStore(meshPoint.address))
-
-    // // let objects = unique(state.objects, meshPoint)
-
-    // let found = find(state.objects, (obj) => {
-    //   return obj.address === meshPoint.address
-    // })
-
-    // if (!found) {
-    //   state.objects.push(found)
-    // }
-
-    // console.log('what is meshPoint: ', meshPoint)
+    store.dispatch(getEventStore(meshPoint.address))
 
     return Object.assign({}, state, {
       selected: meshPoint,
@@ -109,16 +92,6 @@ export const meshPointReducer = (state = initialState, action) => {
     let ownerFaucet = find(action.payload, (f) => {
       return f.creator === state.defaultAddress
     })
-
-    // let pathName = window.location.pathname
-    // let nodeName = getFaucetNameFromPath(pathName)
-    // let foundNode = find(action.payload, (f) => {
-    //   return f.name === nodeName
-    // })
-
-    // if (foundNode) {
-    //   state.selected = foundNode
-    // }
 
     return Object.assign({}, state, {
       objects: action.payload,

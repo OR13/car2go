@@ -156,11 +156,11 @@ class MeshPointAuthorizeTable extends React.Component {
     ]
 
     const isLoaded = () => {
-      return this.props.meshPoint.authorizedAddressReadModel !== null;
+      return this.props.meshPoint.selected !== null
     }
 
     const readModelToRows = () => {
-      let rows = [];
+      let rows = []
       each(this.props.meshPoint.authorizedAddressReadModel, (v, k) => {
         rows.push(
           <TableRow key={k} selected={this.isSelected(k)}>
@@ -171,7 +171,7 @@ class MeshPointAuthorizeTable extends React.Component {
           </TableRow>
         )
       })
-      return rows;
+      return rows
     }
 
     if (!isLoaded()) {
@@ -179,94 +179,91 @@ class MeshPointAuthorizeTable extends React.Component {
         <div style={{ textAlign: 'center' }}>
           <CircularProgress mode='indeterminate' size={80} />
         </div>
-      );
+      )
+    }
+
+    if (!this.props.meshPoint.selected.requestorAddresses.length) {
+      return (
+        <div style={{ textAlign: 'center' }}>
+          <h1 >
+            No users have requested access to <strong>{this.props.meshPoint.selected.name}</strong>
+          </h1>
+          <FlatButton
+            label='Go Home'
+            primary
+            href="/"
+          />
+        </div>
+      )
     } else {
-
-      if (!Object.keys(this.props.meshPoint.authorizedAddressReadModel).length) {
-        return (
-          <div style={{ textAlign: 'center' }}>
-            <h1 >
-              No users have requested access to <strong>{this.props.meshPoint.selected.name}</strong>
-            </h1>
-            <FlatButton
-              label='Go Home'
-              primary
-              href="/"
-            />
-          </div>
-        )
-      } else {
-        return (
-          <Card>
-            <CardTitle
-              title={this.props.meshPoint.selected.name + ' MeshPoint'} style={{ 'textTransform': 'capitalize' }}
-              subtitle={'Balance: ' + this.props.meshPoint.selected.balance + ' Ether'}
-            />
-            <CardText>
-              <div>
-                <Table
-                  height={this.state.height}
-                  onRowSelection={this.onRowSelection}
-                  fixedHeader={this.state.fixedHeader}
-                  fixedFooter={this.state.fixedFooter}
-                  selectable={this.state.selectable}
-                  multiSelectable={this.state.multiSelectable}
-                  bodyStyle={{ overflow: 'visible' }}
+      return (
+        <Card>
+          <CardTitle
+            title={this.props.meshPoint.selected.name + ' MeshPoint'} style={{ 'textTransform': 'capitalize' }}
+            subtitle={'Balance: ' + this.props.meshPoint.selected.balance + ' Ether'}
+          />
+          <CardText>
+            <div>
+              <Table
+                height={this.state.height}
+                onRowSelection={this.onRowSelection}
+                fixedHeader={this.state.fixedHeader}
+                fixedFooter={this.state.fixedFooter}
+                selectable={this.state.selectable}
+                multiSelectable={this.state.multiSelectable}
+                bodyStyle={{ overflow: 'visible' }}
+              >
+                <TableHeader
+                  displaySelectAll={this.state.showCheckboxes}
+                  adjustForCheckbox={this.state.showCheckboxes}
+                  enableSelectAll={this.state.enableSelectAll}
                 >
-                  <TableHeader
-                    displaySelectAll={this.state.showCheckboxes}
-                    adjustForCheckbox={this.state.showCheckboxes}
-                    enableSelectAll={this.state.enableSelectAll}
-                  >
-                    {this.renderTableHeaderFooter()}
-                  </TableHeader>
-                  <TableBody
-                    displayRowCheckbox={this.state.showCheckboxes}
-                    deselectOnClickaway={this.state.deselectOnClickaway}
-                    showRowHover={this.state.showRowHover}
-                    stripedRows={this.state.stripedRows}
-                  >
-                    {isLoaded() &&
-                      readModelToRows()
-                    }
-                  </TableBody>
-                </Table>
-                <Dialog
-                  title='Authorization Change'
-                  actions={actions}
-                  modal={false}
-                  open={this.state.dialogOpen}
-                  onRequestClose={this.handleCloseDialog}
+                  {this.renderTableHeaderFooter()}
+                </TableHeader>
+                <TableBody
+                  displayRowCheckbox={this.state.showCheckboxes}
+                  deselectOnClickaway={this.state.deselectOnClickaway}
+                  showRowHover={this.state.showRowHover}
+                  stripedRows={this.state.stripedRows}
                 >
-                  {this.state.dialogMessage}
-                </Dialog>
-              </div>
-            </CardText>
-            <CardActions style={{ textAlign: 'right' }}>
-              {
-                this.state.selectedRows.length ?
-                  <div>
-                    <FlatButton
-                      label='Revoke'
-                      primary
-                      onTouchTap={this.handleRevoke}
-                    />
-                    <FlatButton
-                      label='Grant'
-                      primary
-                      onTouchTap={this.handleGrant}
-                    />
-                  </div>
-                  :
-                  <div />
-              }
+                  {isLoaded() &&
+                    readModelToRows()
+                  }
+                </TableBody>
+              </Table>
+              <Dialog
+                title='Authorization Change'
+                actions={actions}
+                modal={false}
+                open={this.state.dialogOpen}
+                onRequestClose={this.handleCloseDialog}
+              >
+                {this.state.dialogMessage}
+              </Dialog>
+            </div>
+          </CardText>
+          <CardActions style={{ textAlign: 'right' }}>
+            {
+              this.state.selectedRows.length ?
+                <div>
+                  <FlatButton
+                    label='Revoke'
+                    primary
+                    onTouchTap={this.handleRevoke}
+                  />
+                  <FlatButton
+                    label='Grant'
+                    primary
+                    onTouchTap={this.handleGrant}
+                  />
+                </div>
+                :
+                <div />
+            }
 
-            </CardActions>
-          </Card>
-        )
-
-
-      }
+          </CardActions>
+        </Card>
+      )
     }
   }
 }

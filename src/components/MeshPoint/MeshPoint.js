@@ -79,18 +79,14 @@ export default class MeshPoint extends React.Component {
           </CardText>
           <CardActions style={{ textAlign: 'right' }}>
 
-            { selected.requestorAddresses.length &&
-              <RaisedButton
-              primary
-              onClick={this.handleNavigateToAdmin}
-              label='Admin' />
-            }
-
+            <RaisedButton
+            primary
+            onClick={this.handleNavigateToAdmin}
+            label='Admin' />
             <RaisedButton
               primary
               onClick={this.handleRequestAccess}
               label='Request Access' />
-
             <RaisedButton
               secondary
               style={{ marginRight: '0px' }}
