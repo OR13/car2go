@@ -2,12 +2,11 @@ export const RECEIVE_MESHPOINT = 'RECEIVE_MESHPOINT'
 export const RECEIVE_MESHPOINT_ADDRESSES = 'RECEIVE_MESHPOINT_ADDRESSES'
 export const RECEIVE_MESHPOINT_OBJECTS = 'RECEIVE_MESHPOINT_OBJECTS'
 export const MESHPOINT_CREATED = 'MESHPOINT_CREATED'
+export const RECEIVE_MESHPOINT_EVENT_STORE = 'RECEIVE_MESHPOINT_EVENT_STORE'
 
-export const FAUCET_AUTHORIZATION_REQUESTED = 'FAUCET_AUTHORIZATION_REQUESTED'
-export const FAUCET_AUTHORIZATION_GRANTED = 'FAUCET_AUTHORIZATION_GRANTED'
-export const FAUCET_AUTHORIZATION_REVOKED = 'FAUCET_AUTHORIZATION_REVOKED'
-
-export const RECEIVE_FAUCET_EVENT_STORE = 'RECEIVE_FAUCET_EVENT_STORE'
+export const MESHPOINT_AUTHORIZATION_REQUESTED = 'MESHPOINT_AUTHORIZATION_REQUESTED'
+export const MESHPOINT_AUTHORIZATION_GRANTED = 'MESHPOINT_AUTHORIZATION_GRANTED'
+export const MESHPOINT_AUTHORIZATION_REVOKED = 'MESHPOINT_AUTHORIZATION_REVOKED'
 
 export const SEND_WEI = 'SEND_WEI'
 
@@ -23,7 +22,7 @@ import {
   meshPointSendWei,
 
   getEventStoreEvents
-} from 'middleware/ethereum/faucet'
+} from 'middleware/ethereum/meshPoint'
 
 
 import { eventsFromTransaction } from './event-store'
@@ -35,30 +34,30 @@ export const getEventStore = (_address) => {
     getEventStoreEvents(_address, (events) => {
       console.log('getEventStore...', events)
       dispatch({
-        type: RECEIVE_FAUCET_EVENT_STORE,
+        type: RECEIVE_MESHPOINT_EVENT_STORE,
         payload: events
       })
     })
   }
 }
 
-export const getFaucetByCreator = (_fromAddress) => {
+export const getMeshPointByCreator = (_fromAddress) => {
   return (dispatch) => {
-    managerGetMeshPointByCreator(_fromAddress, (faucet) => {
+    managerGetMeshPointByCreator(_fromAddress, (meshPoint) => {
       dispatch({
         type: RECEIVE_MESHPOINT,
-        payload: faucet
+        payload: meshPoint
       })
     })
   }
 }
 
-export const getFaucetByName = (_name) => {
+export const getMeshPointByName = (_name) => {
   return (dispatch) => {
-    managerGetMeshPointByName(_name, (faucet) => {
+    managerGetMeshPointByName(_name, (meshPoint) => {
       dispatch({
         type: RECEIVE_MESHPOINT,
-        payload: faucet
+        payload: meshPoint
       })
     })
   }
@@ -77,85 +76,85 @@ export const getAllMeshPointAddresses = () => {
 
 export const getAllMeshPointObjects = () => {
   return (dispatch) => {
-    managerGetMeshPointObjects(faucets => {
+    managerGetMeshPointObjects(meshPoints => {
       dispatch({
         type: RECEIVE_MESHPOINT_OBJECTS,
-        payload: faucets
+        payload: meshPoints
       })
     })
   }
 }
 
-export const requestFaucetAccess = (_faucetAddress, _requestorAddress, _fromAddress) => {
+export const requestMeshPointAccess = (_meshPointAddress, _requestorAddress, _fromAddress) => {
   return (dispatch) => {
-    managerRequestMeshPointAccess(_faucetAddress, _requestorAddress, _fromAddress, (_tx) => {
+    managerRequestMeshPointAccess(_meshPointAddress, _requestorAddress, _fromAddress, (_tx) => {
 
       let events = eventsFromTransaction(_tx)
        if (events.length) {
         dispatch({
-          type: 'FAUCET_READ_MODEL_EVENTS_RECEIVED',
+          type: 'MESHPOINT_READ_MODEL_EVENTS_RECEIVED',
           payload: events
         })
       }
       dispatch({
-        type: FAUCET_AUTHORIZATION_REQUESTED,
+        type: MESHPOINT_AUTHORIZATION_REQUESTED,
         payload: _tx
       })
     })
   }
 }
 
-export const authorizeFaucetAccess = (_faucetAddress, _requestorAddress, _fromAddress) => {
+export const authorizeMeshPointAccess = (_meshPointAddress, _requestorAddress, _fromAddress) => {
   return (dispatch) => {
-    managerAuthorizeMeshPointAccess(_faucetAddress, _requestorAddress, _fromAddress, (_tx) => {
+    managerAuthorizeMeshPointAccess(_meshPointAddress, _requestorAddress, _fromAddress, (_tx) => {
 
       let events = eventsFromTransaction(_tx)
 
        if (events.length) {
         dispatch({
-          type: 'FAUCET_READ_MODEL_EVENTS_RECEIVED',
+          type: 'MESHPOINT_READ_MODEL_EVENTS_RECEIVED',
           payload: events
         })
       }
 
       dispatch({
-        type: FAUCET_AUTHORIZATION_GRANTED,
+        type: MESHPOINT_AUTHORIZATION_GRANTED,
         payload: _tx
       })
     })
   }
 }
 
-export const revokeFaucetAccess = (_faucetAddress, _requestorAddress, _fromAddress) => {
+export const revokeMeshPointAccess = (_meshPointAddress, _requestorAddress, _fromAddress) => {
   return (dispatch) => {
-    console.log('revokeFaucetAccess: ', _faucetAddress, _requestorAddress, _fromAddress)
-    managerRevokeMeshPointAccess(_faucetAddress, _requestorAddress, _fromAddress, (_tx) => {
+    console.log('revokeMeshPointAccess: ', _meshPointAddress, _requestorAddress, _fromAddress)
+    managerRevokeMeshPointAccess(_meshPointAddress, _requestorAddress, _fromAddress, (_tx) => {
 
       let events = eventsFromTransaction(_tx)
 
        if (events.length) {
         dispatch({
-          type: 'FAUCET_READ_MODEL_EVENTS_RECEIVED',
+          type: 'MESHPOINT_READ_MODEL_EVENTS_RECEIVED',
           payload: events
         })
       }
 
       dispatch({
-        type: FAUCET_AUTHORIZATION_REVOKED,
+        type: MESHPOINT_AUTHORIZATION_REVOKED,
         payload: _tx
       })
     })
   }
 }
 
-export const createFaucet = (_name, _fromAddress) => {
+export const createMeshPoint = (_name, _fromAddress) => {
   return (dispatch) => {
     managerCreateMeshPoint(_name, _fromAddress, (_tx) => {
 
       let events = eventsFromTransaction(_tx)
       if (events.length) {
         dispatch({
-          type: 'FAUCET_READ_MODEL_EVENTS_RECEIVED',
+          type: 'MESHPOINT_READ_MODEL_EVENTS_RECEIVED',
           payload: events
         })
       }
@@ -167,14 +166,14 @@ export const createFaucet = (_name, _fromAddress) => {
   }
 }
 
-export const sendWei = (_faucetAddress, _recipientAddress, _fromAddress) => {
+export const sendWei = (_meshPointAddress, _recipientAddress, _fromAddress) => {
   return (dispatch) => {
-    meshPointSendWei(_faucetAddress, _recipientAddress, _fromAddress, (_tx) => {
+    meshPointSendWei(_meshPointAddress, _recipientAddress, _fromAddress, (_tx) => {
 
       let events = eventsFromTransaction(_tx)
       if (events.length) {
         dispatch({
-          type: 'FAUCET_READ_MODEL_EVENTS_RECEIVED',
+          type: 'MESHPOINT_READ_MODEL_EVENTS_RECEIVED',
           payload: events
         })
       }

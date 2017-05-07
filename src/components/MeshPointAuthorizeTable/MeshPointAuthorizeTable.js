@@ -39,7 +39,7 @@ class MeshPointAuthorizeTable extends React.Component {
   onRowSelection = (rows) => {
     let selectedRows = [];
     // console.log('wut...', rows)
-    let addresses = Object.keys(this.props.faucet.authorizedAddressReadModel)
+    let addresses = Object.keys(this.props.meshPoint.authorizedAddressReadModel)
 
     if (rows === 'all') {
       selectedRows = addresses;
@@ -79,11 +79,11 @@ class MeshPointAuthorizeTable extends React.Component {
   handleConfirmDialog = () => {
     if (this.state.dialogActionChoice === 'grant') {
       this.state.selectedRows.forEach((requestingAddress) => {
-        if (this.props.faucet.authorizedAddressReadModel[requestingAddress] !== 'Granted') {
+        if (this.props.meshPoint.authorizedAddressReadModel[requestingAddress] !== 'Granted') {
           let payload = {
-            faucetAddress: this.props.faucet.selected.address,
+            meshPointAddress: this.props.meshPoint.selected.address,
             requestorAddress: requestingAddress,
-            fromAddress: this.props.faucet.selected.creator
+            fromAddress: this.props.meshPoint.selected.creator
           };
           this.props.onAuthorizeFaucetAccess(payload)
         }
@@ -92,11 +92,11 @@ class MeshPointAuthorizeTable extends React.Component {
 
     if (this.state.dialogActionChoice === 'revoke') {
       this.state.selectedRows.forEach((requestingAddress) => {
-        if (this.props.faucet.authorizedAddressReadModel[requestingAddress] !== 'Revoked') {
+        if (this.props.meshPoint.authorizedAddressReadModel[requestingAddress] !== 'Revoked') {
           let payload = {
-            faucetAddress: this.props.faucet.selected.address,
+            meshPointAddress: this.props.meshPoint.selected.address,
             requestorAddress: requestingAddress,
-            fromAddress: this.props.faucet.selected.creator
+            fromAddress: this.props.meshPoint.selected.creator
           };
           this.props.onRevokeFaucetAccess(payload);
         }
@@ -156,12 +156,12 @@ class MeshPointAuthorizeTable extends React.Component {
     ]
 
     const isLoaded = () => {
-      return this.props.faucet.authorizedAddressReadModel !== null;
+      return this.props.meshPoint.authorizedAddressReadModel !== null;
     }
 
     const readModelToRows = () => {
       let rows = [];
-      each(this.props.faucet.authorizedAddressReadModel, (v, k) => {
+      each(this.props.meshPoint.authorizedAddressReadModel, (v, k) => {
         rows.push(
           <TableRow key={k} selected={this.isSelected(k)}>
             <TableRowColumn>{k.substring(0, 6) + '...'}</TableRowColumn>
@@ -182,11 +182,11 @@ class MeshPointAuthorizeTable extends React.Component {
       );
     } else {
 
-      if (!Object.keys(this.props.faucet.authorizedAddressReadModel).length) {
+      if (!Object.keys(this.props.meshPoint.authorizedAddressReadModel).length) {
         return (
           <div style={{ textAlign: 'center' }}>
             <h1 >
-              No users have requested access to <strong>{this.props.faucet.selected.name}</strong>
+              No users have requested access to <strong>{this.props.meshPoint.selected.name}</strong>
             </h1>
             <FlatButton
               label='Go Home'
@@ -199,8 +199,8 @@ class MeshPointAuthorizeTable extends React.Component {
         return (
           <Card>
             <CardTitle
-              title={this.props.faucet.selected.name + ' MeshPoint'} style={{ 'textTransform': 'capitalize' }}
-              subtitle={'Balance: ' + this.props.faucet.selected.balance + ' Ether'}
+              title={this.props.meshPoint.selected.name + ' MeshPoint'} style={{ 'textTransform': 'capitalize' }}
+              subtitle={'Balance: ' + this.props.meshPoint.selected.balance + ' Ether'}
             />
             <CardText>
               <div>

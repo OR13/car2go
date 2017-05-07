@@ -11,7 +11,7 @@ export const TODO_PATH = '/todo'
 
 export const ADMIN_PATH = '/admin'
 
-export const CREATE_FAUCET_PATH = '/node/create'
+export const CREATE_MESHPOINT_PATH = '/node/create'
 
 export default {
   LIST_PATH,
@@ -24,5 +24,5 @@ export default {
   DEBUG_PATH,
   TODO_PATH,
   ADMIN_PATH,
-  CREATE_FAUCET_PATH
+  CREATE_MESHPOINT_PATH
 }

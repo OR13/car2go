@@ -7,13 +7,18 @@ import { reactReduxFirebase, getFirebase } from 'react-redux-firebase'
 import { firebase as fbConfig, reduxFirebase as reduxConfig } from '../config'
 import { version } from '../../package.json'
 
+
+import { browserHistory } from 'react-router'
+import { updateLocation } from './location'
+
+
 const logger = createLogger({
   // ...options
   // Add firebase updates here....
   // collapsed: (getState, action, logEntry) => {
   //   console.log('what is log?', logEntry)
   // }
-});
+})
 
 export default (initialState = {}, history) => {
   // ======================================================
@@ -57,6 +62,10 @@ export default (initialState = {}, history) => {
     )
   )
   store.asyncReducers = {}
+
+  // To unsubscribe, invoke `store.unsubscribeHistory()` anytime
+  store.unsubscribeHistory = browserHistory.listen(updateLocation(store))
+
 
 
 

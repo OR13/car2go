@@ -7,14 +7,14 @@ import { reducer as form } from 'redux-form'
 import { debugReducer as debug } from './debug'
 import { web3Reducer as web3 } from './ethereum/web3'
 import { uportReducer as uport } from './ethereum/uport'
-import { faucetReducer as faucet } from './ethereum/faucet'
+import { meshPointReducer as meshPoint } from './ethereum/meshPoint'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
     debug,
     web3,
     uport,
-    faucet,
+    meshPoint,
     // Add sync reducers here
     firebase,
     form,

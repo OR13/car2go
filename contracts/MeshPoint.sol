@@ -90,7 +90,7 @@ contract MeshPoint is EventStore  {
             throw;
         requestorAddresses.add(_requestor);
         authorizedAddressesMapping[_requestor] = false;
-        emitEvent('FAUCET_ADDRESS_ACCESS_REQUESTED', _requestor, 1, '');
+        emitEvent('MESHPOINT_ADDRESS_ACCESS_REQUESTED', _requestor, 1, '');
     }
 
     function authorizeRequestorAddress(address _requestor) public onlyCreator {
@@ -99,7 +99,7 @@ contract MeshPoint is EventStore  {
         if (authorizedAddressesMapping[_requestor])
             throw;
         authorizedAddressesMapping[_requestor] = true;
-        emitEvent('FAUCET_ADDRESS_ACCESS_GRANTED', _requestor, 1, '');
+        emitEvent('MESHPOINT_ADDRESS_ACCESS_GRANTED', _requestor, 1, '');
     }
 
     function revokeRequestorAddress(address _requestor) public onlyCreator {
@@ -108,7 +108,7 @@ contract MeshPoint is EventStore  {
         if (!authorizedAddressesMapping[_requestor])
             throw;
         authorizedAddressesMapping[_requestor] = false;
-        emitEvent('FAUCET_ADDRESS_ACCESS_REVOKED', _requestor, 1, '');
+        emitEvent('MESHPOINT_ADDRESS_ACCESS_REVOKED', _requestor, 1, '');
     }
 
     function isAddressAuthorized(address _address) public constant returns (bool) {

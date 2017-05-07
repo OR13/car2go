@@ -31,14 +31,14 @@ contract('MeshPointManager', function (accounts) {
   })
 
   it('Verify MeshPoint Factory Addresses', (done) => {
-    faucetManagerInstance.getFaucetByCreator.call({ from: faucetCreator }).then((_faucetAddress) => {
-      faucetAddress = _faucetAddress
+    faucetManagerInstance.getMeshPointByCreator.call({ from: faucetCreator }).then((_meshPointAddress) => {
+      faucetAddress = _meshPointAddress
       done()
     })
   })
 
   it('Create MeshPoint address', (done) => {
-    faucetManagerInstance.createFaucet.call(faucetName, {
+    faucetManagerInstance.createMeshPoint.call(faucetName, {
       from: faucetCreator,
       value: faucetSeedEther
     }).then((_address) => {
@@ -48,17 +48,17 @@ contract('MeshPointManager', function (accounts) {
   })
 
   it('Create MeshPoint', (done) => {
-    var events = faucetManagerInstance.FaucetCreated()
+    var events = faucetManagerInstance.MeshPointCreated()
 
     events.watch((error, result) => {
       if (error == null) {
-        assert.equal(faucetAddress, result.args._address, '_faucetAddress does not match faucetAddress')
+        assert.equal(faucetAddress, result.args._address, '_meshPointAddress does not match faucetAddress')
         events.stopWatching()
         done()
       }
     })
 
-    faucetManagerInstance.createFaucet(faucetName, {
+    faucetManagerInstance.createMeshPoint(faucetName, {
       from: faucetCreator,
       gas: 2000000,
       value: faucetSeedEther
@@ -72,8 +72,8 @@ contract('MeshPointManager', function (accounts) {
   })
 
   it('Verify MeshPoint owner', (done) => {
-    MeshPoint.at(faucetAddress).then((_faucet) => {
-      return _faucet.owner.call().then((_owner) => {
+    MeshPoint.at(faucetAddress).then((_meshPoint) => {
+      return _meshPoint.owner.call().then((_owner) => {
         assert.equal(faucetManagerInstance.address, _owner, 'faucetManagerInstance is not faucet owner')
         done()
       })
@@ -81,15 +81,15 @@ contract('MeshPointManager', function (accounts) {
   })
 
   it('Verify faucetByCreatorMapping update', (done) => {
-    faucetManagerInstance.getFaucetByCreator.call({ from: faucetCreator }).then((_faucetAddress) => {
-      assert.equal(_faucetAddress, faucetAddress, '_faucetAddress does not match faucetAddress')
+    faucetManagerInstance.getMeshPointByCreator.call({ from: faucetCreator }).then((_meshPointAddress) => {
+      assert.equal(_meshPointAddress, faucetAddress, '_meshPointAddress does not match faucetAddress')
       done()
     })
   })
 
-  it('Verify nameFaucetMapping update', (done) => {
-    faucetManagerInstance.getFaucetByName.call(faucetName, { from: faucetCreator }).then((_faucetAddress) => {
-      assert.equal(_faucetAddress, faucetAddress, '_faucetAddress does not match faucetAddress')
+  it('Verify nameMeshPointMapping update', (done) => {
+    faucetManagerInstance.getMeshPointByName.call(faucetName, { from: faucetCreator }).then((_meshPointAddress) => {
+      assert.equal(_meshPointAddress, faucetAddress, '_meshPointAddress does not match faucetAddress')
       done()
     })
   })
@@ -100,8 +100,8 @@ contract('MeshPointManager', function (accounts) {
   })
 
   it('Verify Get Send Amount', (done) => {
-    MeshPoint.at(faucetAddress).then((_faucet) => {
-      return _faucet.getSendAmount.call({ from: faucetCustomer })
+    MeshPoint.at(faucetAddress).then((_meshPoint) => {
+      return _meshPoint.getSendAmount.call({ from: faucetCustomer })
     }).then((_sendAmount) => {
       assert.equal(1000000000000000000, _sendAmount.toNumber(), 'sendAmount wasn\'t 1000000000000000000')
       done()
@@ -127,8 +127,8 @@ contract('MeshPointManager', function (accounts) {
   })
 
   it('Verify Customer address contained in MeshPoint requestorAddresses', () => {
-    MeshPoint.at(faucetAddress).then((_faucet) => {
-      return _faucet.getRequestorAddresses.call()
+    MeshPoint.at(faucetAddress).then((_meshPoint) => {
+      return _meshPoint.getRequestorAddresses.call()
     }).then((_requestorAddresses) => {
       assert(_.includes(_requestorAddresses, faucetCustomer), '_requestorAddresses does not contain faucetCustomer')
     })
@@ -167,8 +167,8 @@ contract('MeshPointManager', function (accounts) {
   })
 
   it('Verify Customer address is authorized', (done) => {
-    MeshPoint.at(faucetAddress).then((_faucet) => {
-      return _faucet.isAddressAuthorized.call(faucetCustomer)
+    MeshPoint.at(faucetAddress).then((_meshPoint) => {
+      return _meshPoint.isAddressAuthorized.call(faucetCustomer)
     }).then((_isAuthorized) => {
       assert(_isAuthorized, 'faucetCustomer is not authorized')
       done()
@@ -176,12 +176,12 @@ contract('MeshPointManager', function (accounts) {
   })
 
   it('Verify Customer Can Get Wei', (done) => {
-    MeshPoint.at(faucetAddress).then((_faucet) => {
-      var events = _faucet.EtherRequested()
+    MeshPoint.at(faucetAddress).then((_meshPoint) => {
+      var events = _meshPoint.EtherRequested()
 
       events.watch((error, result) => {
         if (error == null) {
-          _faucet.isAddressAuthorized.call(faucetCustomer)
+          _meshPoint.isAddressAuthorized.call(faucetCustomer)
             .then((_isAuthorized) => {
               assert(_isAuthorized, 'faucetCustomer is not authorized')
               done()
@@ -191,13 +191,13 @@ contract('MeshPointManager', function (accounts) {
         }
       })
 
-      _faucet.getWei({ from: faucetCustomer, gas: 2000000 })
+      _meshPoint.getWei({ from: faucetCustomer, gas: 2000000 })
     })
   })
 
   it('Verify Customer Can Send Wei', (done) => {
-    MeshPoint.at(faucetAddress).then((_faucet) => {
-      var events = _faucet.EtherSent()
+    MeshPoint.at(faucetAddress).then((_meshPoint) => {
+      var events = _meshPoint.EtherSent()
 
       events.watch((error, result) => {
         if (error == null) {
@@ -207,7 +207,7 @@ contract('MeshPointManager', function (accounts) {
         }
       })
 
-      _faucet.sendWei(faucetRecipient, { from: faucetCustomer })
+      _meshPoint.sendWei(faucetRecipient, { from: faucetCustomer })
     })
   })
 
@@ -230,8 +230,8 @@ contract('MeshPointManager', function (accounts) {
   })
 
   it('Verify Customer address is not authorized', (done) => {
-    MeshPoint.at(faucetAddress).then((_faucet) => {
-      return _faucet.isAddressAuthorized.call(faucetCustomer)
+    MeshPoint.at(faucetAddress).then((_meshPoint) => {
+      return _meshPoint.isAddressAuthorized.call(faucetCustomer)
     }).then((_isAuthorized) => {
       assert(!_isAuthorized, 'faucetCustomer is authorized')
       done()
@@ -253,12 +253,12 @@ contract('MeshPointManager', function (accounts) {
 
     it('readEvent', () => {
       return MeshPoint.at(faucetAddress)
-        .then((_faucet) => {
-          return readEvent(_faucet, 0)
+        .then((_meshPoint) => {
+          return readEvent(_meshPoint, 0)
         })
         .then((eventObject) => {
           // console.log('eventObject: ', eventObject);
-          assert.equal(eventObject.Type, 'FAUCET_ADDRESS_ACCESS_REQUESTED');
+          assert.equal(eventObject.Type, 'MESHPOINT_ADDRESS_ACCESS_REQUESTED');
           assert.equal(eventObject.AddressValue, faucetCustomer);
           assert.equal(eventObject.UIntValue, 1);
           assert.equal(eventObject.StringValue, '');
@@ -267,8 +267,8 @@ contract('MeshPointManager', function (accounts) {
 
     it('readEvents', () => {
       return MeshPoint.at(faucetAddress)
-        .then((_faucet) => {
-          return readEvents(_faucet)
+        .then((_meshPoint) => {
+          return readEvents(_meshPoint)
         })
         .then((eventObjects) => {
           // console.log('eventObject: ', eventObjects);
@@ -283,10 +283,10 @@ contract('MeshPointManager', function (accounts) {
 
   // Timing issue here, need to add some buffer before destroying things, or tests fail...
   // it('Destroy MeshPoint', () => {
-  //   MeshPoint.at(faucetAddress).then((_faucet) => {
-  //     faucetManagerInstance.killFaucet(_faucet.address, faucetName, faucetCreator, { from: faucetCreator }).then(() => {
-  //       assert.equal(faucetManagerInstance.creatorFaucetMapping, null, 'creatorFaucetMapping was not undefined')
-  //       assert.equal(faucetManagerInstance.nameFaucetMapping, null, 'nameFaucetMapping was not undefined')
+  //   MeshPoint.at(faucetAddress).then((_meshPoint) => {
+  //     faucetManagerInstance.killMeshPoint(_meshPoint.address, faucetName, faucetCreator, { from: faucetCreator }).then(() => {
+  //       assert.equal(faucetManagerInstance.creatorMeshPointMapping, null, 'creatorMeshPointMapping was not undefined')
+  //       assert.equal(faucetManagerInstance.nameMeshPointMapping, null, 'nameMeshPointMapping was not undefined')
   //     })
   //   })
   // })

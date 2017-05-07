@@ -9,14 +9,14 @@ export const LOCATION_CHANGE = 'LOCATION_CHANGE'
 // ------------------------------------
 
 const pathContainsFaucet = (pathname) => {
-  return pathname.indexOf('/node/') !== -1;
+  return pathname.indexOf('/node/') !== -1
 }
 
 export const getFaucetNameFromPath = (path) => {
   if (pathContainsFaucet(path)) {
-    var parts = decodeURI(path).split('/')
+    let parts = decodeURI(path).split('/')
     let cleanName = parts[2].toLowerCase().replace(/\s+/g, '-')
-    return cleanName;
+    return cleanName
   }
   return null
 }
@@ -38,6 +38,11 @@ export const updateLocation = ({ dispatch }) => {
   return (nextLocation) => dispatch(locationChange(nextLocation))
 }
 
+export const initLocation = (nextLocation) => {
+  return (dispatch) => {
+     dispatch(locationChange(nextLocation))
+  }
+}
 // ------------------------------------
 // Reducer
 // ------------------------------------

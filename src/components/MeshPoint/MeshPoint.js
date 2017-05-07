@@ -15,23 +15,23 @@ export default class MeshPoint extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.state.address === '' && this.props.faucet.defaultAddress) {
+    if (this.state.address === '' && this.props.meshPoint.defaultAddress) {
       this.state = {
-        address: this.props.faucet.defaultAddress
+        address: this.props.meshPoint.defaultAddress
       }
     }
   }
 
   handleSendWei = () => {
-    this.props.onSendWeiFormSubmit(this.props.faucet.selected.address, this.state.address, this.props.faucet.defaultAddress)
+    this.props.onSendWeiFormSubmit(this.props.meshPoint.selected.address, this.state.address, this.props.meshPoint.defaultAddress)
   }
 
   handleRequestAccess = () => {
-    this.props.onRequestFaucetAccess(this.props.faucet.selected.address, this.state.address, this.props.faucet.defaultAddress)
+    this.props.onRequestFaucetAccess(this.props.meshPoint.selected.address, this.state.address, this.props.meshPoint.defaultAddress)
   }
 
   handleNavigateToAdmin = () => {
-    let path = '/node/' + this.props.faucet.selected.name + '/authorize-users'
+    let path = '/node/' + this.props.meshPoint.selected.name + '/authorize-users'
     this.props.onNavigateToPath(path)
   }
 
@@ -42,7 +42,7 @@ export default class MeshPoint extends React.Component {
   }
 
   render() {
-    const { selected } = this.props.faucet
+    const { selected } = this.props.meshPoint
 
     const isLoaded = () => {
       return selected !== null;
@@ -79,10 +79,12 @@ export default class MeshPoint extends React.Component {
           </CardText>
           <CardActions style={{ textAlign: 'right' }}>
 
-            <RaisedButton
+            { selected.requestorAddresses.length &&
+              <RaisedButton
               primary
               onClick={this.handleNavigateToAdmin}
               label='Admin' />
+            }
 
             <RaisedButton
               primary

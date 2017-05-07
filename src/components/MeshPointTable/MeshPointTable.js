@@ -27,7 +27,7 @@ class MeshPointTable extends React.Component {
   }
 
   onRowSelection = (index) => {
-    var selectedObject = this.props.faucetObjects[index];
+    var selectedObject = this.props.meshPointObjects[index];
     if (selectedObject) {
       this.setState({
         dialogOpen: true,
@@ -96,13 +96,13 @@ class MeshPointTable extends React.Component {
             showRowHover={this.state.showRowHover}
             stripedRows={this.state.stripedRows}
           >
-            {this.props.faucetObjects.map((faucet, index) => (
+            {this.props.meshPointObjects.map((meshPoint, index) => (
               <TableRow key={index}>
-                <TableRowColumn>{faucet.balance}</TableRowColumn>
-                <TableRowColumn>{faucet.name}</TableRowColumn>
-                <TableRowColumn>{faucet.requestorAddresses.length}</TableRowColumn>
-                <TableRowColumn>{faucet.address.substring(0, 6) + '...'}</TableRowColumn>
-                <TableRowColumn>{faucet.creator.substring(0, 6) + '...'}</TableRowColumn>
+                <TableRowColumn>{meshPoint.balance}</TableRowColumn>
+                <TableRowColumn>{meshPoint.name}</TableRowColumn>
+                <TableRowColumn>{meshPoint.requestorAddresses.length}</TableRowColumn>
+                <TableRowColumn>{meshPoint.address.substring(0, 6) + '...'}</TableRowColumn>
+                <TableRowColumn>{meshPoint.creator.substring(0, 6) + '...'}</TableRowColumn>
               </TableRow>
             ))}
           </TableBody>

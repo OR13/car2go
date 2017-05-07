@@ -12,15 +12,15 @@ export default class CreateMeshPointForm extends React.Component {
     super(props)
     this.state = {
       error: '',
-      faucetName: ''
+      meshPointName: ''
     }
   }
 
   handleCreateFaucet = () => {
-    let cleanName = this.state.faucetName.toLowerCase().replace(/\s+/g, '-')
+    let cleanName = this.state.meshPointName.toLowerCase().replace(/\s+/g, '-')
     this.props.onCreateFaucetSubmit({
       name: cleanName,
-      fromAddress: this.props.faucet.defaultAddress
+      fromAddress: this.props.meshPoint.defaultAddress
     })
   }
 
@@ -28,12 +28,12 @@ export default class CreateMeshPointForm extends React.Component {
     var errorText = /^[a-zA-Z\s]*$/.test(event.target.value) ? '' : 'Invalid name, please only use letters and spaces'
     this.setState({
       error: errorText,
-      faucetName: event.target.value
+      meshPointName: event.target.value
     })
   }
 
   render () {
-      let { faucet } = this.props;
+      let { meshPoint } = this.props;
       return (
         <Card>
           <CardTitle
@@ -45,7 +45,7 @@ export default class CreateMeshPointForm extends React.Component {
               style={{ width: '100%' }}
               id='text-field-controlled'
               floatingLabelText='Name'
-              value={this.state.faucetName}
+              value={this.state.meshPointName}
               errorText={this.state.error}
               onChange={e => this.onInputChange(e)}
               />
@@ -55,7 +55,7 @@ export default class CreateMeshPointForm extends React.Component {
               style={{marginRight: '0px'}}
               secondary={true}
               onClick={this.handleCreateFaucet}
-              disabled={this.state.error.length > 0 || this.state.faucetName.trim().length === 0}
+              disabled={this.state.error.length > 0 || this.state.meshPointName.trim().length === 0}
               label='Create' />
           </CardActions>
         </Card>

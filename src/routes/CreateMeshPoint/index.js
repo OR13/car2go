@@ -1,4 +1,4 @@
-import { CREATE_FAUCET_PATH as path } from 'constants/paths'
+import { CREATE_MESHPOINT_PATH as path } from 'constants/paths'
 
 export default (store) => ({
   path,

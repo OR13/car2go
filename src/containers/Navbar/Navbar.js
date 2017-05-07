@@ -15,7 +15,7 @@ import {
   TRANSFER_PATH,
   LOGIN_PATH,
   SIGNUP_PATH,
-  CREATE_FAUCET_PATH
+  CREATE_MESHPOINT_PATH
 } from 'constants/paths'
 
 // Components
@@ -43,11 +43,11 @@ const avatarStyles = {
 
 @firebaseConnect()
 @connect(
-  ({ firebase, faucet }) => ({
+  ({ firebase, meshPoint }) => ({
     authError: pathToJS(firebase, 'authError'),
     auth: pathToJS(firebase, 'auth'),
     account: pathToJS(firebase, 'profile'),
-    faucet: faucet
+    meshPoint: meshPoint
   })
 )
 export default class Navbar extends Component {
@@ -67,7 +67,7 @@ export default class Navbar extends Component {
   }
 
   render() {
-    const { account, faucet } = this.props
+    const { account, meshPoint } = this.props
     const accountExists = isLoaded(account) && !isEmpty(account)
     const iconButton = (
       <IconButton style={avatarStyles.button} disableTouchRipple>

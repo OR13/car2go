@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom'
 import AppContainer from './containers/App/App'
 import createStore from './store/createStore'
 
-import { browserHistory } from 'react-router'
-import { updateLocation } from './store/location'
 
 // ========================================================
 // Store and History Instantiation
@@ -18,18 +16,20 @@ export const store = createStore(initialState)
 
 import { getWeb3Accounts } from 'store/ethereum/web3'
 
+import { browserHistory } from 'react-router'
+import { initLocation } from './store/location'
+
+
 function doEverything() {
   return dispatch => Promise.all([
-    store.dispatch(getWeb3Accounts())
+    store.dispatch(getWeb3Accounts()),
+    store.dispatch(initLocation(browserHistory.getCurrentLocation()))
   ])
 }
 
-store.dispatch(doEverything()).then(() => {
+store.dispatch(doEverything())
+.then(() => {
   console.log('I did everything!')
-
-  console.log(browserHistory)
-  // To unsubscribe, invoke `store.unsubscribeHistory()` anytime
-  store.unsubscribeHistory = browserHistory.listen(updateLocation(store))
 })
 
 // ========================================================

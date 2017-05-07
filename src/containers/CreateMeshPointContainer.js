@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
 import CreateMeshPointForm from 'components/CreateMeshPointForm'
-import { createFaucet } from 'store/ethereum/faucet'
+import { createMeshPoint } from 'store/ethereum/meshPoint'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    faucet: state.faucet
+    meshPoint: state.meshPoint
   }
 }
 
@@ -12,7 +12,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onCreateFaucetSubmit: (data) => {
       event.preventDefault()
-      dispatch(createFaucet(data.name, data.fromAddress))
+      dispatch(createMeshPoint(data.name, data.fromAddress))
     }
   }
 }

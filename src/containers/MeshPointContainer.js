@@ -4,11 +4,11 @@ import MeshPoint from 'components/MeshPoint/MeshPoint'
 import { browserHistory } from 'react-router'
 
 
-import { sendWei, getFaucetByName, requestFaucetAccess } from 'store/ethereum/faucet'
+import { sendWei, getMeshPointByName, requestMeshPointAccess } from 'store/ethereum/meshPoint'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    faucet: state.faucet,
+    meshPoint: state.meshPoint,
     web3: state.web3
   }
 }
@@ -16,15 +16,15 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onGetFaucetByName: (cleanName) => {
-      dispatch(getFaucetByName(cleanName))
+      dispatch(getMeshPointByName(cleanName))
     },
-    onSendWeiFormSubmit: (_faucetAddress, _recipientAddress, _fromAddress) => {
-      dispatch(sendWei(_faucetAddress, _recipientAddress, _fromAddress))
+    onSendWeiFormSubmit: (_meshPointAddress, _recipientAddress, _fromAddress) => {
+      dispatch(sendWei(_meshPointAddress, _recipientAddress, _fromAddress))
     },
-    onRequestFaucetAccess: (_faucetAddress, _requestorAddress, _fromAddress) => {
-      console.log('_faucetAddress, _requestorAddress, _fromAddress')
-      console.log(_faucetAddress, _requestorAddress, _fromAddress)
-      dispatch(requestFaucetAccess(_faucetAddress, _requestorAddress, _fromAddress))
+    onRequestFaucetAccess: (_meshPointAddress, _requestorAddress, _fromAddress) => {
+      console.log('_meshPointAddress, _requestorAddress, _fromAddress')
+      console.log(_meshPointAddress, _requestorAddress, _fromAddress)
+      dispatch(requestMeshPointAccess(_meshPointAddress, _requestorAddress, _fromAddress))
     },
     onNavigateToPath: (path) => {
       browserHistory.push(path)

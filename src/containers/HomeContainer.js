@@ -12,27 +12,27 @@ import MeshPointTableContainer from 'containers/MeshPointTableContainer'
 import { browserHistory } from 'react-router'
 
 @connect(
-  ({ faucet }) => ({
-    faucet: faucet
+  ({ meshPoint }) => ({
+    meshPoint: meshPoint
   })
 )
 export default class Home extends Component {
 
   componentWillReceiveProps(nextProps) {
     // console.log(nextProps)
-    let { faucet } = nextProps;
+    let { meshPoint } = nextProps;
 
-    // if (faucet.isOwner) {
-    //   browserHistory.push("/node/" + faucet.selected.name)
+    // if (meshPoint.isOwner) {
+    //   browserHistory.push("/node/" + meshPoint.selected.name)
     // }
   }
 
 
   render() {
-    let { faucet } = this.props;
+    let { meshPoint } = this.props;
 
     const isLoaded = () => {
-      return faucet.objects !== null;
+      return meshPoint.objects !== null;
     }
 
     const HeroContent = () => {
@@ -52,7 +52,7 @@ export default class Home extends Component {
     const DefaultView = () => {
 
       if (isLoaded()) {
-        if (faucet.defaultFaucet !== undefined) {
+        if (meshPoint.defaultMeshPoint !== undefined) {
           return (
             <MeshPointTableContainer />
           )

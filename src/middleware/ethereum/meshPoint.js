@@ -21,8 +21,8 @@ import { readEvents } from '../../../ti-framework/event-store'
 export const getEventStoreEvents = (_address, _callback) => {
 
     return meshPoint.at(_address)
-        .then(async (_faucet) => {
-            return readEvents(_faucet)
+        .then(async (_meshPoint) => {
+            return readEvents(_meshPoint)
         })
         .then((events) => {
             _callback(events)
@@ -31,15 +31,15 @@ export const getEventStoreEvents = (_address, _callback) => {
 
 export const getMeshPointViewModel = (_address) => {
     return meshPoint.at(_address)
-        .then(async (_faucet) => {
+        .then(async (_meshPoint) => {
             return {
-                address: _faucet.address,
-                timeCreated: (await _faucet.timeCreated.call()).toNumber(),
-                creator: await _faucet.creator.call(),
-                name: await _faucet.name.call().then((_name) => _name.replace(/-/g, ' ')),
+                address: _meshPoint.address,
+                timeCreated: (await _meshPoint.timeCreated.call()).toNumber(),
+                creator: await _meshPoint.creator.call(),
+                name: await _meshPoint.name.call().then((_name) => _name.replace(/-/g, ' ')),
                 balance: await web3.fromWei(web3.eth.getBalance(_address), 'ether').toNumber(),
-                requestorAddresses: await _faucet.getRequestorAddresses(),
-                events: await readEvents(_faucet)
+                requestorAddresses: await _meshPoint.getRequestorAddresses(),
+                events: await readEvents(_meshPoint)
             }
         })
 }
@@ -63,7 +63,7 @@ const getMeshPointsByAddressesAsyc = async (_addresses) => {
 export const managerGetMeshPointByCreator = (fromAddress, _callback) => {
     meshPointManager.deployed()
         .then((_instance) => {
-            _instance.getFaucetByCreator
+            _instance.getMeshPointByCreator
                 .call({ from: fromAddress })
                 .then(async (_address) => {
                     let addr = _address === '0x0000000000000000000000000000000000000000' ? null : await getMeshPointByAddress(_address)
@@ -78,7 +78,7 @@ export const managerGetMeshPointByCreator = (fromAddress, _callback) => {
 export const managerGetMeshPointByName = (_name, _callback) => {
     meshPointManager.deployed()
         .then((_instance) => {
-            _instance.getFaucetByName
+            _instance.getMeshPointByName
                 .call(_name)
                 .then(async (_address) => {
                     let addr = _address === '0x0000000000000000000000000000000000000000' ? null : await getMeshPointByAddress(_address)
@@ -96,8 +96,8 @@ export const managerGetMeshPointObjects = (_callback) => {
             _instance.getFaucets
                 .call()
                 .then(async (addresses) => {
-                    let faucetContracts = await getMeshPointsByAddressesAsyc(addresses)
-                    _callback(faucetContracts)
+                    let meshPointContracts = await getMeshPointsByAddressesAsyc(addresses)
+                    _callback(meshPointContracts)
                 })
                 .catch((error) => {
                     console.error(error)
@@ -124,7 +124,7 @@ export const managerCreateMeshPoint = (_name, fromAddress, _callback) => {
     meshPointManager.deployed()
         .then((_instance) => {
             _instance
-                .createFaucet(_name, { from: fromAddress, gas: 2000000, value: web3.toWei(10) })
+                .createMeshPoint(_name, { from: fromAddress, gas: 2000000, value: web3.toWei(10) })
                 .then((_tx) => {
                     _callback(_tx)
                 })
@@ -134,11 +134,11 @@ export const managerCreateMeshPoint = (_name, fromAddress, _callback) => {
         })
 }
 
-export const managerRequestMeshPointAccess = (_faucetAddress, _requestorAddress, _fromAddress, _callback) => {
+export const managerRequestMeshPointAccess = (_meshPointAddress, _requestorAddress, _fromAddress, _callback) => {
     meshPointManager.deployed()
         .then((_instance) => {
             _instance
-                .requestAccess(_faucetAddress, _requestorAddress, {
+                .requestAccess(_meshPointAddress, _requestorAddress, {
                     from: _fromAddress,
                     gas: 2000000
                 })
@@ -151,11 +151,11 @@ export const managerRequestMeshPointAccess = (_faucetAddress, _requestorAddress,
         })
 }
 
-export const managerAuthorizeMeshPointAccess = (_faucetAddress, _requestorAddress, _fromAddress, _callback) => {
+export const managerAuthorizeMeshPointAccess = (_meshPointAddress, _requestorAddress, _fromAddress, _callback) => {
     meshPointManager.deployed()
         .then((_instance) => {
             _instance
-                .authorizeAccess(_faucetAddress, _requestorAddress, {
+                .authorizeAccess(_meshPointAddress, _requestorAddress, {
                     from: _fromAddress,
                     gas: 2000000
                 })
@@ -168,11 +168,11 @@ export const managerAuthorizeMeshPointAccess = (_faucetAddress, _requestorAddres
         })
 }
 
-export const managerRevokeMeshPointAccess = (_faucetAddress, _requestorAddress, _fromAddress, _callback) => {
+export const managerRevokeMeshPointAccess = (_meshPointAddress, _requestorAddress, _fromAddress, _callback) => {
     meshPointManager.deployed()
         .then((_instance) => {
             _instance
-                .revokeAccess(_faucetAddress, _requestorAddress, {
+                .revokeAccess(_meshPointAddress, _requestorAddress, {
                     from: _fromAddress,
                     gas: 2000000
                 })
@@ -185,10 +185,10 @@ export const managerRevokeMeshPointAccess = (_faucetAddress, _requestorAddress, 
         })
 }
 
-export const meshPointSendWei = (_faucetAddress, _recipientAddress, _fromAddress, _callback) => {
-    meshPoint.at(_faucetAddress)
-        .then((_faucet) => {
-            _faucet.sendWei(_recipientAddress, { from: _fromAddress })
+export const meshPointSendWei = (_meshPointAddress, _recipientAddress, _fromAddress, _callback) => {
+    meshPoint.at(_meshPointAddress)
+        .then((_meshPoint) => {
+            _meshPoint.sendWei(_recipientAddress, { from: _fromAddress })
                 .then((_tx) => {
                     _callback(_tx)
                 })

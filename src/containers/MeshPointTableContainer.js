@@ -5,7 +5,7 @@ import { browserHistory } from 'react-router'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    faucetObjects: state.faucet.objects
+    meshPointObjects: state.meshPoint.objects
   }
 }
 
