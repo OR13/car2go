@@ -30,6 +30,7 @@ export const getEventStoreEvents = (_address, _callback) => {
 }
 
 export const getMeshPointViewModel = (_address) => {
+    // console.log('what is address bad getMeshPointViewModel?: ', _address)
     return meshPoint.at(_address)
         .then(async (_meshPoint) => {
             return {
@@ -45,6 +46,7 @@ export const getMeshPointViewModel = (_address) => {
 }
 
 export const getMeshPointByAddress = (_address) => {
+    //   console.log('what is address bad getMeshPointByAddress?: ', _address)
     return getMeshPointViewModel(_address)
         .then((viewModel) => {
             return viewModel

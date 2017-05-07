@@ -70,29 +70,30 @@ export const meshPointReducer = (state = initialState, action) => {
 
   if (action.type === RECEIVE_MESHPOINT) {
     let meshPoint = action.payload
-    let defaultMeshPoint
+    // let defaultMeshPoint
 
-    if (meshPoint && meshPoint.creator === state.defaultAddress) {
-      defaultMeshPoint = meshPoint
-    }
+    // if (meshPoint && meshPoint.creator === state.defaultAddress) {
+    //   defaultMeshPoint = meshPoint
+    // }
 
-    store.dispatch(getEventStore(meshPoint.address))
+    // store.dispatch(getEventStore(meshPoint.address))
 
-    // let objects = unique(state.objects, meshPoint)
+    // // let objects = unique(state.objects, meshPoint)
 
-    let found = find(state.objects, (obj) => {
-      return obj.address === meshPoint.address
-    })
+    // let found = find(state.objects, (obj) => {
+    //   return obj.address === meshPoint.address
+    // })
 
-    if (!found) {
-      state.objects.push(found)
-    }
+    // if (!found) {
+    //   state.objects.push(found)
+    // }
 
+    // console.log('what is meshPoint: ', meshPoint)
 
     return Object.assign({}, state, {
       selected: meshPoint,
-      isOwner: meshPoint && meshPoint.creator === state.defaultAddress,
-      defaultMeshPoint: defaultMeshPoint,
+      // isOwner: meshPoint && meshPoint.creator === state.defaultAddress,
+      defaultMeshPoint: meshPoint,
       objects: state.objects
     })
   }
@@ -127,10 +128,12 @@ export const meshPointReducer = (state = initialState, action) => {
   }
 
   if (action.type === MESHPOINT_CREATED) {
-    store.dispatch(getMeshPointByCreator(state.defaultAddress))
-    return Object.assign({}, state, {
-      addresses: state.addresses.concat(action.payload.logs[0].address)
-    })
+    // store.dispatch(getMeshPointByCreator(state.defaultAddress))
+    store.dispatch(getAllMeshPointObjects())
+    // console.log('expect logs to contain address of new point: ', action.payload.logs)
+    // return Object.assign({}, state, {
+    //   addresses: state.addresses.concat(action.payload.logs[0].args._address)
+    // })
   }
 
 

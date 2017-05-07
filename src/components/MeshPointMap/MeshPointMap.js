@@ -4,7 +4,7 @@ import GoogleMapReact from 'google-map-react'
 const AnyReactComponent = ({ text }) => (
 
     <div>
-        <img src='car2go_logo.jpg' style={{height: '32px', width: '32px'}} />
+        <img src='/car2go_logo.jpg' style={{height: '32px', width: '32px'}} />
         {text}
     </div>
 )
