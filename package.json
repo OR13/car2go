@@ -63,6 +63,7 @@
     "formsy-material-ui": "^0.6.0",
     "formsy-react": "^0.19.2",
     "fs-extra": "^1.0.0",
+    "google-map-react": "^0.24.0",
     "lodash": "^4.17.2",
     "material-ui": "0.16.0",
     "moment": "^2.18.1",

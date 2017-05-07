@@ -1,5 +1,5 @@
 import { getRandomAddress } from 'env'
-import { without, find } from 'lodash'
+import { without, find, unique } from 'lodash'
 
 import {
   RECEIVE_WEB3_ACCOUNTS
@@ -78,16 +78,22 @@ export const meshPointReducer = (state = initialState, action) => {
 
     store.dispatch(getEventStore(meshPoint.address))
 
-    let objects = state.objects
-    if (objects) {
-      objects = objects.concat(meshPoint)
+    // let objects = unique(state.objects, meshPoint)
+
+    let found = find(state.objects, (obj) => {
+      return obj.address === meshPoint.address
+    })
+
+    if (!found) {
+      state.objects.push(found)
     }
+
 
     return Object.assign({}, state, {
       selected: meshPoint,
       isOwner: meshPoint && meshPoint.creator === state.defaultAddress,
       defaultMeshPoint: defaultMeshPoint,
-      objects: objects
+      objects: state.objects
     })
   }
 
@@ -98,7 +104,7 @@ export const meshPointReducer = (state = initialState, action) => {
   }
 
   if (action.type === RECEIVE_MESHPOINT_OBJECTS) {
-    
+
     let ownerFaucet = find(action.payload, (f) => {
       return f.creator === state.defaultAddress
     })

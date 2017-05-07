@@ -39,10 +39,8 @@ export {
     revokeMeshPointAccess,
     sendWei,
     getEventStore
-
     ,
 
     meshPointReducer,
     initialState
-
 }

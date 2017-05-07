@@ -9,6 +9,8 @@ import CircularProgress from 'material-ui/CircularProgress'
 import CreateMeshPointContainer from 'containers/CreateMeshPointContainer'
 import MeshPointTableContainer from 'containers/MeshPointTableContainer'
 
+import MeshPointMap from 'components/MeshPointMap'
+
 import { browserHistory } from 'react-router'
 
 @connect(
@@ -74,6 +76,8 @@ export default class Home extends Component {
           <HeroContent />
         </HeroRow>
         <DefaultView />
+
+        <MeshPointMap />
       </div>
     )
   }
