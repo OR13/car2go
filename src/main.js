@@ -16,19 +16,21 @@ import { updateLocation } from './store/location'
 const initialState = window.___INITIAL_STATE__
 export const store = createStore(initialState)
 
-import { getWeb3Accounts } from 'store/ethereum/web3';
+import { getWeb3Accounts } from 'store/ethereum/web3'
 
 function doEverything() {
   return dispatch => Promise.all([
     store.dispatch(getWeb3Accounts())
-  ]);
+  ])
 }
 
 store.dispatch(doEverything()).then(() => {
-  console.log('I did everything!');
+  console.log('I did everything!')
+
+  console.log(browserHistory)
   // To unsubscribe, invoke `store.unsubscribeHistory()` anytime
   store.unsubscribeHistory = browserHistory.listen(updateLocation(store))
-});
+})
 
 // ========================================================
 // Render Setup

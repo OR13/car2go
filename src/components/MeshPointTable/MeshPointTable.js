@@ -108,13 +108,13 @@ class MeshPointTable extends React.Component {
           </TableBody>
         </Table>
         <Dialog
-          title='Open faucet in new tab?'
+          title='Review MeshPoint'
           actions={actions}
           modal={false}
           open={this.state.dialogOpen}
           onRequestClose={this.handleCloseDialog}
         >
-          Are you sure you want to open <strong>{this.state.selectedObject !== null && this.state.selectedObject.name}</strong> faucet in a new tab?
+          <strong>{this.state.selectedObject !== null && this.state.selectedObject.name}</strong> MeshPoint is in range, would you like to review it?
         </Dialog>
       </div>
     )

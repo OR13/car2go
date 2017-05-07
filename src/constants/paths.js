@@ -11,7 +11,7 @@ export const TODO_PATH = '/todo'
 
 export const ADMIN_PATH = '/admin'
 
-export const CREATE_FAUCET_PATH = '/faucet/create'
+export const CREATE_FAUCET_PATH = '/node/create'
 
 export default {
   LIST_PATH,

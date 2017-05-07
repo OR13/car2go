@@ -738,8 +738,52 @@
       "links": {},
       "address": "0xea4e36a826bdb4c09e2ce7ed1093c7a05e1521e3",
       "updated_at": 1494052809182
+    },
+    "1494116753115": {
+      "events": {
+        "0x0b8db9208eb127cfd546991e87e5bc7c29bb8b92b0ac9afafc60a3798e20265d": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "Id",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "Type",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "name": "Created",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "AddressValue",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "UIntValue",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "StringValue",
+              "type": "string"
+            }
+          ],
+          "name": "NEW_EVENT",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xedfd5177f460f8f2b917421bc7bc5ebec2e41fcf",
+      "updated_at": 1494119170755
     }
   },
   "schema_version": "0.0.5",
-  "updated_at": 1494052809182
+  "updated_at": 1494119170755
 }

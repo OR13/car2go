@@ -8,23 +8,9 @@
             }
         },
         "color": {
-            "value": "#4CAF50"
+            "value": "#2196F3"
         },
-        "shape": {
-            "type": "image",
-            "stroke": {
-                "width": 0,
-                "color": "#000000"
-            },
-            "polygon": {
-                "nb_sides": 6
-            },
-            "image": {
-                "src": "http://www.stickpng.com/assets/images/5845ca7c1046ab543d25238b.png",
-                "width": 10,
-                "height": 10
-            }
-        },
+  
         "opacity": {
             "value": 0.25,
             "random": true,
@@ -48,7 +34,7 @@
         "line_linked": {
             "enable": true,
             "distance": 100,
-            "color": "#4CAF50",
+            "color": "#2196F3",
             "opacity": 0.50,
             "width": 1
         },

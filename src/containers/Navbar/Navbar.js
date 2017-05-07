@@ -135,7 +135,7 @@ export default class Navbar extends Component {
       <AppBar
         title={
           <Link to={accountExists ? `${LIST_PATH}` : '/'} className={classes.brand}>
-            Mesh ISP
+            LastMile
           </Link>
         }
         showMenuIconButton={false}

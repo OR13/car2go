@@ -9,7 +9,7 @@ export const LOCATION_CHANGE = 'LOCATION_CHANGE'
 // ------------------------------------
 
 const pathContainsFaucet = (pathname) => {
-  return pathname.indexOf('/faucets/') !== -1;
+  return pathname.indexOf('/node/') !== -1;
 }
 
 export const getFaucetNameFromPath = (path) => {
@@ -18,7 +18,7 @@ export const getFaucetNameFromPath = (path) => {
     let cleanName = parts[2].toLowerCase().replace(/\s+/g, '-')
     return cleanName;
   }
-  return null;
+  return null
 }
 
 // ------------------------------------
@@ -42,8 +42,7 @@ export const updateLocation = ({ dispatch }) => {
 // Reducer
 // ------------------------------------
 const initialState = null
-export default function locationReducer(state = initialState, action) {
-  return action.type === LOCATION_CHANGE
-    ? action.payload
-    : state
+
+export const locationReducer = (state = initialState, action) => {
+  return action.type === LOCATION_CHANGE ? action.payload : state
 }
