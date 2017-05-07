@@ -1,7 +1,6 @@
 
-import Web3 from 'web3'
-const provider = new Web3.providers.HttpProvider('http://localhost:8545')
-const web3 = new Web3(provider)
+import { web3 } from 'env'
+
 
 const contract = require('truffle-contract')
 
@@ -9,10 +8,10 @@ import MeshPoint from '../../../build/contracts/MeshPoint.json'
 import MeshPointManager from '../../../build/contracts/MeshPointManager.json'
 
 const meshPoint = contract(MeshPoint)
-meshPoint.setProvider(provider)
+meshPoint.setProvider(web3.currentProvider)
 
 const meshPointManager = contract(MeshPointManager)
-meshPointManager.setProvider(provider)
+meshPointManager.setProvider(web3.currentProvider)
 
 import { readEvents } from '../../../ti-framework/event-store'
 
