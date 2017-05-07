@@ -28,6 +28,23 @@ export const getEventStoreEvents = (_address, _callback) => {
         })
 }
 
+
+
+
+const getBalanceAsync = async (_address) => {
+    return await new Promise(resolve => {
+        web3.eth.getBalance(_address, (error, result) => {
+            if (error) {
+                console.error(error)
+            }
+            let contractBalance = result.toNumber()
+            let balanceEth = web3.fromWei(contractBalance, 'ether')
+            resolve(balanceEth)
+        })
+    })
+}
+
+
 export const getMeshPointViewModel = (_address) => {
     // console.log('what is address bad getMeshPointViewModel?: ', _address)
     return meshPoint.at(_address)
@@ -37,7 +54,7 @@ export const getMeshPointViewModel = (_address) => {
                 timeCreated: (await _meshPoint.timeCreated.call()).toNumber(),
                 creator: await _meshPoint.creator.call(),
                 name: await _meshPoint.name.call().then((_name) => _name.replace(/-/g, ' ')),
-                balance: await web3.fromWei(web3.eth.getBalance(_address), 'ether').toNumber(),
+                balance: await getBalanceAsync(_address),
                 requestorAddresses: await _meshPoint.getRequestorAddresses(),
                 events: await readEvents(_meshPoint)
             }

@@ -216,8 +216,14 @@
       "links": {},
       "address": "0x7e91a3f85e40cd1b7fd6875e84fece55b2b8aa9a",
       "updated_at": 1494178570763
+    },
+    "1494179864082": {
+      "events": {},
+      "links": {},
+      "address": "0x7fedb11a278abc470e3f1b5ff6331e3a12ee5b29",
+      "updated_at": 1494179873262
     }
   },
   "schema_version": "0.0.5",
-  "updated_at": 1494178570763
+  "updated_at": 1494179873262
 }
