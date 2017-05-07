@@ -24,6 +24,12 @@ contract EventStore is Killable {
     string StringValue
   );
 
+  // Fallback Function
+  function() payable {}
+  
+  function EventStore() payable {
+  }
+
   function getVersion() public constant
     returns (uint)
   {

@@ -23,7 +23,7 @@ contract MeshPoint is EventStore  {
     function() payable {}
 
     // Constructor
-    function MeshPoint(string _name, address _creator) {
+    function MeshPoint(string _name, address _creator) payable {
         timeCreated = now;
         name = _name;
         creator = _creator;

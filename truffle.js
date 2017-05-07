@@ -12,13 +12,13 @@ module.exports = {
     },
     "ropsten": {
       provider: new LightWalletProvider({
-        keystore: 'sigmate-v3-austin-eth-faucet',
+        keystore: 'sigmate-v3-austin-eth-faucet.json',
         password: lightWalletPassword,
         rpcUrl: 'https://ropsten.infura.io',
         debug: true,
         pollingInterval: 2000
       }),
-      network_id: '*',
+      network_id: '*'
     },
     "parity": {
       network_id: "*",
