@@ -23,7 +23,7 @@ export default class Home extends Component {
     let { faucet } = nextProps;
 
     // if (faucet.isOwner) {
-    //   browserHistory.push("/faucets/" + faucet.selected.name)
+    //   browserHistory.push("/node/" + faucet.selected.name)
     // }
   }
 

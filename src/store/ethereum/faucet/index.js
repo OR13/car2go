@@ -1,9 +1,8 @@
 import {
-    RECEIVE_FAUCET,
-    RECEIVE_FAUCET_ADDRESSES,
-    RECEIVE_FAUCET_OBJECTS,
-    FAUCET_CREATED,
-    FAUCET_UPDATED,
+    RECEIVE_MESHPOINT,
+    RECEIVE_MESHPOINT_ADDRESSES,
+    RECEIVE_MESHPOINT_OBJECTS,
+    MESHPOINT_CREATED,
     FAUCET_AUTHORIZATION_REQUESTED,
     FAUCET_AUTHORIZATION_GRANTED,
     FAUCET_AUTHORIZATION_REVOKED,
@@ -11,8 +10,8 @@ import {
     RECEIVE_FAUCET_EVENT_STORE,
     getFaucetByCreator,
     getFaucetByName,
-    getAllFaucetAddresses,
-    getAllFaucetObjects,
+    getAllMeshPointAddresses,
+    getAllMeshPointObjects,
     createFaucet,
     requestFaucetAccess,
     authorizeFaucetAccess,
@@ -24,14 +23,13 @@ import {
 import {
     faucetReducer,
     initialState
-}   from './reducer'
+} from './reducer'
 
 export {
-    RECEIVE_FAUCET,
-    RECEIVE_FAUCET_ADDRESSES,
-    RECEIVE_FAUCET_OBJECTS,
-    FAUCET_CREATED,
-    FAUCET_UPDATED,
+    RECEIVE_MESHPOINT,
+    RECEIVE_MESHPOINT_ADDRESSES,
+    RECEIVE_MESHPOINT_OBJECTS,
+    MESHPOINT_CREATED,
     FAUCET_AUTHORIZATION_REQUESTED,
     FAUCET_AUTHORIZATION_GRANTED,
     FAUCET_AUTHORIZATION_REVOKED,
@@ -39,8 +37,8 @@ export {
     RECEIVE_FAUCET_EVENT_STORE,
     getFaucetByCreator,
     getFaucetByName,
-    getAllFaucetAddresses,
-    getAllFaucetObjects,
+    getAllMeshPointAddresses,
+    getAllMeshPointObjects,
     createFaucet,
     requestFaucetAccess,
     authorizeFaucetAccess,

@@ -1,8 +1,7 @@
-export const RECEIVE_FAUCET = 'RECEIVE_FAUCET'
-export const RECEIVE_FAUCET_ADDRESSES = 'RECEIVE_FAUCET_ADDRESSES'
-export const RECEIVE_FAUCET_OBJECTS = 'RECEIVE_FAUCET_OBJECTS'
-export const FAUCET_CREATED = 'FAUCET_CREATED'
-export const FAUCET_UPDATED = 'FAUCET_UPDATED'
+export const RECEIVE_MESHPOINT = 'RECEIVE_MESHPOINT'
+export const RECEIVE_MESHPOINT_ADDRESSES = 'RECEIVE_MESHPOINT_ADDRESSES'
+export const RECEIVE_MESHPOINT_OBJECTS = 'RECEIVE_MESHPOINT_OBJECTS'
+export const MESHPOINT_CREATED = 'MESHPOINT_CREATED'
 
 export const FAUCET_AUTHORIZATION_REQUESTED = 'FAUCET_AUTHORIZATION_REQUESTED'
 export const FAUCET_AUTHORIZATION_GRANTED = 'FAUCET_AUTHORIZATION_GRANTED'
@@ -13,28 +12,27 @@ export const RECEIVE_FAUCET_EVENT_STORE = 'RECEIVE_FAUCET_EVENT_STORE'
 export const SEND_WEI = 'SEND_WEI'
 
 import {
-  faucetManagerContractGetFaucetByCreator,
-  faucetManagerContractGetFaucetByName,
-  faucetManagerContractGetAllFaucetAddresses,
-  faucetManagerContractGetAllFaucetObjects,
-  faucetManagerContractCreateFaucet,
-  faucetManagerContractRequestFaucetAccess,
-  faucetManagerContractAuthorizeFaucetAccess,
-  faucetManagerContractRevokeFaucetAccess,
-  faucetContractSendWei,
+  managerGetMeshPointByCreator,
+  managerGetMeshPointByName,
+  managerGetMeshPointAddresses,
+  managerGetMeshPointObjects,
+  managerCreateMeshPoint,
+  managerRequestMeshPointAccess,
+  managerAuthorizeMeshPointAccess,
+  managerRevokeMeshPointAccess,
+  meshPointSendWei,
 
   getEventStoreEvents
 } from 'middleware/ethereum/faucet'
 
 
-import { eventsFromTransaction } from './event-store';
+import { eventsFromTransaction } from './event-store'
 
 
 export const getEventStore = (_address) => {
   console.log('getEventStore...', _address)
   return (dispatch) => {
     getEventStoreEvents(_address, (events) => {
-      
       console.log('getEventStore...', events)
       dispatch({
         type: RECEIVE_FAUCET_EVENT_STORE,
@@ -46,9 +44,9 @@ export const getEventStore = (_address) => {
 
 export const getFaucetByCreator = (_fromAddress) => {
   return (dispatch) => {
-    faucetManagerContractGetFaucetByCreator(_fromAddress, (faucet) => {
+    managerGetMeshPointByCreator(_fromAddress, (faucet) => {
       dispatch({
-        type: RECEIVE_FAUCET,
+        type: RECEIVE_MESHPOINT,
         payload: faucet
       })
     })
@@ -57,31 +55,31 @@ export const getFaucetByCreator = (_fromAddress) => {
 
 export const getFaucetByName = (_name) => {
   return (dispatch) => {
-    faucetManagerContractGetFaucetByName(_name, (faucet) => {
+    managerGetMeshPointByName(_name, (faucet) => {
       dispatch({
-        type: RECEIVE_FAUCET,
+        type: RECEIVE_MESHPOINT,
         payload: faucet
       })
     })
   }
 }
 
-export const getAllFaucetAddresses = () => {
+export const getAllMeshPointAddresses = () => {
   return (dispatch) => {
-    faucetManagerContractGetAllFaucetAddresses(addresses => {
+    managerGetMeshPointAddresses(addresses => {
       dispatch({
-        type: RECEIVE_FAUCET_ADDRESSES,
+        type: RECEIVE_MESHPOINT_ADDRESSES,
         payload: addresses
       })
     })
   }
 }
 
-export const getAllFaucetObjects = () => {
+export const getAllMeshPointObjects = () => {
   return (dispatch) => {
-    faucetManagerContractGetAllFaucetObjects(faucets => {
+    managerGetMeshPointObjects(faucets => {
       dispatch({
-        type: RECEIVE_FAUCET_OBJECTS,
+        type: RECEIVE_MESHPOINT_OBJECTS,
         payload: faucets
       })
     })
@@ -90,19 +88,15 @@ export const getAllFaucetObjects = () => {
 
 export const requestFaucetAccess = (_faucetAddress, _requestorAddress, _fromAddress) => {
   return (dispatch) => {
-    faucetManagerContractRequestFaucetAccess(_faucetAddress, _requestorAddress, _fromAddress, (_tx) => {
+    managerRequestMeshPointAccess(_faucetAddress, _requestorAddress, _fromAddress, (_tx) => {
 
-      let events = eventsFromTransaction(_tx);
-
-
-       if (events.length){
+      let events = eventsFromTransaction(_tx)
+       if (events.length) {
         dispatch({
-          type: "FAUCET_READ_MODEL_EVENTS_RECEIVED",
+          type: 'FAUCET_READ_MODEL_EVENTS_RECEIVED',
           payload: events
         })
       }
-
-
       dispatch({
         type: FAUCET_AUTHORIZATION_REQUESTED,
         payload: _tx
@@ -113,17 +107,16 @@ export const requestFaucetAccess = (_faucetAddress, _requestorAddress, _fromAddr
 
 export const authorizeFaucetAccess = (_faucetAddress, _requestorAddress, _fromAddress) => {
   return (dispatch) => {
-    faucetManagerContractAuthorizeFaucetAccess(_faucetAddress, _requestorAddress, _fromAddress, (_tx) => {
+    managerAuthorizeMeshPointAccess(_faucetAddress, _requestorAddress, _fromAddress, (_tx) => {
 
-      let events = eventsFromTransaction(_tx);
+      let events = eventsFromTransaction(_tx)
 
-       if (events.length){
+       if (events.length) {
         dispatch({
-          type: "FAUCET_READ_MODEL_EVENTS_RECEIVED",
+          type: 'FAUCET_READ_MODEL_EVENTS_RECEIVED',
           payload: events
         })
       }
-
 
       dispatch({
         type: FAUCET_AUTHORIZATION_GRANTED,
@@ -136,14 +129,13 @@ export const authorizeFaucetAccess = (_faucetAddress, _requestorAddress, _fromAd
 export const revokeFaucetAccess = (_faucetAddress, _requestorAddress, _fromAddress) => {
   return (dispatch) => {
     console.log('revokeFaucetAccess: ', _faucetAddress, _requestorAddress, _fromAddress)
-    faucetManagerContractRevokeFaucetAccess(_faucetAddress, _requestorAddress, _fromAddress, (_tx) => {
+    managerRevokeMeshPointAccess(_faucetAddress, _requestorAddress, _fromAddress, (_tx) => {
 
-      let events = eventsFromTransaction(_tx);
+      let events = eventsFromTransaction(_tx)
 
-
-       if (events.length){
+       if (events.length) {
         dispatch({
-          type: "FAUCET_READ_MODEL_EVENTS_RECEIVED",
+          type: 'FAUCET_READ_MODEL_EVENTS_RECEIVED',
           payload: events
         })
       }
@@ -158,20 +150,17 @@ export const revokeFaucetAccess = (_faucetAddress, _requestorAddress, _fromAddre
 
 export const createFaucet = (_name, _fromAddress) => {
   return (dispatch) => {
-    faucetManagerContractCreateFaucet(_name, _fromAddress, (_tx) => {
+    managerCreateMeshPoint(_name, _fromAddress, (_tx) => {
 
-      let events = eventsFromTransaction(_tx);
-
-
-       if (events.length){
+      let events = eventsFromTransaction(_tx)
+      if (events.length) {
         dispatch({
-          type: "FAUCET_READ_MODEL_EVENTS_RECEIVED",
+          type: 'FAUCET_READ_MODEL_EVENTS_RECEIVED',
           payload: events
         })
       }
-
       dispatch({
-        type: FAUCET_CREATED,
+        type: MESHPOINT_CREATED,
         payload: _tx
       })
     })
@@ -180,18 +169,15 @@ export const createFaucet = (_name, _fromAddress) => {
 
 export const sendWei = (_faucetAddress, _recipientAddress, _fromAddress) => {
   return (dispatch) => {
-    faucetContractSendWei(_faucetAddress, _recipientAddress, _fromAddress, (_tx) => {
+    meshPointSendWei(_faucetAddress, _recipientAddress, _fromAddress, (_tx) => {
 
-      let events = eventsFromTransaction(_tx);
-
-
-      if (events.length){
+      let events = eventsFromTransaction(_tx)
+      if (events.length) {
         dispatch({
-          type: "FAUCET_READ_MODEL_EVENTS_RECEIVED",
+          type: 'FAUCET_READ_MODEL_EVENTS_RECEIVED',
           payload: events
         })
       }
-     
       dispatch({
         type: SEND_WEI,
         payload: _tx

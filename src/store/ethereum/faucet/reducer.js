@@ -11,19 +11,15 @@ import {
 } from 'store/location'
 
 import {
-  RECEIVE_FAUCET,
-  RECEIVE_FAUCET_ADDRESSES,
-  RECEIVE_FAUCET_OBJECTS,
-  FAUCET_CREATED,
-  // FAUCET_UPDATED,
-  // FAUCET_AUTHORIZATION_REQUESTED,
-  // FAUCET_AUTHORIZATION_GRANTED,
-  // FAUCET_AUTHORIZATION_REVOKED,
+  RECEIVE_MESHPOINT,
+  RECEIVE_MESHPOINT_ADDRESSES,
+  RECEIVE_MESHPOINT_OBJECTS,
+  MESHPOINT_CREATED,
   RECEIVE_FAUCET_EVENT_STORE,
   SEND_WEI,
   getFaucetByCreator,
   getFaucetByName,
-  getAllFaucetObjects,
+  getAllMeshPointObjects,
   getEventStore
 } from './actions'
 
@@ -68,13 +64,13 @@ export const faucetReducer = (state = initialState, action) => {
 
   if (action.type === RECEIVE_WEB3_ACCOUNTS) {
     let defaultAddress = getRandomAddress(action.payload)
-    store.dispatch(getAllFaucetObjects())
+    store.dispatch(getAllMeshPointObjects())
     return Object.assign({}, state, {
       defaultAddress: defaultAddress
     })
   }
 
-  if (action.type === RECEIVE_FAUCET) {
+  if (action.type === RECEIVE_MESHPOINT) {
     let faucet = action.payload
     let defaultFaucet
 
@@ -97,22 +93,19 @@ export const faucetReducer = (state = initialState, action) => {
     })
   }
 
-  if (action.type === RECEIVE_FAUCET_ADDRESSES) {
+  if (action.type === RECEIVE_MESHPOINT_ADDRESSES) {
     return Object.assign({}, state, {
       addresses: without(action.payload, 0)
     })
   }
 
-  if (action.type === RECEIVE_FAUCET_OBJECTS) {
+  if (action.type === RECEIVE_MESHPOINT_OBJECTS) {
     let ownerFaucet = find(action.payload, (f) => {
       return f.creator === state.defaultAddress
     })
 
     let pathName = window.location.pathname
-
     let nodeName = getFaucetNameFromPath(pathName)
-    // console.log('asfddsfds nodeName: ', nodeName)
-
     let foundNode = find(action.payload, (f) => {
       return f.name === nodeName
     })
@@ -124,7 +117,7 @@ export const faucetReducer = (state = initialState, action) => {
     })
   }
 
-  if (action.type === FAUCET_CREATED) {
+  if (action.type === MESHPOINT_CREATED) {
     store.dispatch(getFaucetByCreator(state.defaultAddress))
     return Object.assign({}, state, {
       addresses: state.addresses.concat(action.payload.logs[0].address)

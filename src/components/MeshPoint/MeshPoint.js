@@ -61,7 +61,7 @@ export default class MeshPoint extends React.Component {
         <Card>
           {selected &&
             <CardTitle
-              title={selected.name + ' MeshPoint'} style={{ 'textTransform': 'capitalize' }}
+              title={selected.name + ' MeshPoint Node'} style={{ 'textTransform': 'capitalize' }}
               subtitle={'Balance: ' + selected.balance + ' Ether'}
             />
           }
