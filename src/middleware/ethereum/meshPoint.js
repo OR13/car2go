@@ -125,7 +125,7 @@ export const managerCreateMeshPoint = (_name, fromAddress, _callback) => {
     meshPointManager.deployed()
         .then((_instance) => {
             _instance
-                .createMeshPoint(_name, { from: fromAddress, gas: 2000000, value: web3.toWei(10) })
+                .createMeshPoint(_name, { from: fromAddress, gas: 2000000, value: web3.toWei(0) })
                 .then((_tx) => {
                     _callback(_tx)
                 })
