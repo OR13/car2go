@@ -54,9 +54,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/prescottprue/material.git"
+    "url": "git+https://github.com/OR13/car2go.git"
   },
-  "author": "prescottprue (https://github.com/prescottprue)",
+  "author": "Orie (https://github.com/OR13)",
   "license": "MIT",
   "dependencies": {
     "@digix/truffle-lightwallet-provider": "0.0.11",
@@ -77,7 +77,7 @@
     "react-particles-js": "^1.5.0",
     "react-redux": "^4.4.5",
     "react-redux-firebase": "*",
-    "react-router": "^2.8.0",
+    "react-router": "^3.0.0",
     "react-router-redux": "^4.0.8",
     "react-tap-event-plugin": "1.0.0",
     "redux": "^3.6.0",
